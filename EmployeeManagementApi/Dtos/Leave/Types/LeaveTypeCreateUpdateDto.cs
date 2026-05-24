@@ -1,8 +1,7 @@
-﻿namespace EmployeeManagementApi.Models
+﻿namespace EmployeeManagementApi.Dtos.Leave.LeaveType
 {
-    public class LeaveType
+    public class LeaveTypeCreateUpdateDto
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public int MaxDaysPerYear { get; set; }
     }

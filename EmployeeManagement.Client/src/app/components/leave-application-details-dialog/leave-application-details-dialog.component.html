@@ -1,0 +1,89 @@
+<h2 mat-dialog-title>{{ data.heading }}</h2>
+
+<mat-dialog-content>
+    <div class="details-container">
+
+        <!-- Status Banner -->
+        <div class="status-banner" [ngClass]="getStatus(data.application.status).bannerClass">
+            <mat-icon>{{ getStatus(data.application.status).icon }}</mat-icon>
+            <span>{{ getStatus(data.application.status).label }}</span>
+        </div>
+
+        <!-- Details Grid -->
+        <div class="details-grid">
+
+            <div class="detail-row">
+                <span class="detail-label">
+                    <mat-icon>person</mat-icon> Employee
+                </span>
+                <span class="detail-value">{{ data.application.employeeName }}</span>
+            </div>
+
+            <div class="detail-row">
+                <span class="detail-label">
+                    <mat-icon>label</mat-icon> Leave Type
+                </span>
+                <span class="detail-value">
+                    <span class="leave-type-chip">{{ data.application.leaveTypeName }}</span>
+                </span>
+            </div>
+
+            <div class="detail-row">
+                <span class="detail-label">
+                    <mat-icon>calendar_today</mat-icon> Start Date
+                </span>
+                <span class="detail-value">{{ data.application.startDate | date: 'dd MMM, yyyy' }}</span>
+            </div>
+
+            <div class="detail-row">
+                <span class="detail-label">
+                    <mat-icon>event</mat-icon> End Date
+                </span>
+                <span class="detail-value">{{ data.application.endDate | date: 'dd MMM, yyyy' }}</span>
+            </div>
+
+            <div class="detail-row">
+                <span class="detail-label">
+                    <mat-icon>timelapse</mat-icon> Duration
+                </span>
+                <span class="detail-value">
+                    <span class="duration-chip">
+                        {{ data.application.duration }}
+                        {{ data.application.duration === 1 ? 'day' : 'days' }}
+                    </span>
+                </span>
+            </div>
+
+            <div class="detail-row">
+                <span class="detail-label">
+                    <mat-icon>schedule</mat-icon> Applied On
+                </span>
+                <span class="detail-value">{{ data.application.appliedAt | date: 'dd MMM, yyyy, hh:mm a' }}</span>
+            </div>
+
+            <div class="detail-row">
+                <span class="detail-label">
+                    <mat-icon>notes</mat-icon> Note
+                </span>
+                <span class="detail-value">{{ data.application.note || '—' }}</span>
+            </div>
+
+        </div>
+
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    @if (data.application.status === 0 && !data.readonly) {
+    <button mat-stroked-button class="reject-btn" (click)="rejectLeave(data.application.id)" [disabled]="isLoading">
+        <mat-icon>cancel</mat-icon> Reject
+    </button>
+    <button mat-flat-button class="approve-btn" (click)="approveLeave(data.application.id)" [disabled]="isLoading">
+        <mat-icon>check_circle</mat-icon>
+        @if (isLoading) { Processing... } @else { Approve }
+    </button>
+    <button mat-stroked-button (click)="closeDialog()">Close</button>
+    } @else {
+    <button mat-stroked-button (click)="closeDialog()">Close</button>
+    }
+</mat-dialog-actions>

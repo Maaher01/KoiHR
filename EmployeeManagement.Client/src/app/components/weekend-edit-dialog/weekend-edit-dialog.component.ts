@@ -65,7 +65,7 @@ export class WeekendEditDialogComponent {
       .subscribe({
         next: () => {
           this.isLoading = false;
-          this.dialogRef.close(true);
+          this.closeDialog();
         },
         error: (err) => {
           this.errorMessage = err.error?.message;

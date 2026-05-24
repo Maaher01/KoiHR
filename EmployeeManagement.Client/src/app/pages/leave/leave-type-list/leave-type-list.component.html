@@ -1,0 +1,81 @@
+<mat-card class="cardWithShadow theme-card">
+    <mat-card-header>
+        <div class="flex flex-row justify-between items-center w-100">
+            <div>
+                <mat-card-title class="m-b-0">Leave Types</mat-card-title>
+            </div>
+            <button mat-flat-button color="primary" (click)="addLeaveType()">
+                <mat-icon>add</mat-icon> Add Leave Type
+            </button>
+        </div>
+    </mat-card-header>
+
+    <mat-card-content class="b-t-1">
+
+        @if (isLoading) {
+        <div class="flex justify-center items-center p-8">
+            <mat-spinner diameter="40" />
+        </div>
+        }
+
+        @if (errorResponse) {
+        <mat-error class="p-4">{{ errorResponse }}</mat-error>
+        }
+
+        @if (!isLoading) {
+        <div class="table-responsive">
+            <table mat-table [dataSource]="leaveTypes" class="w-100">
+
+                <!-- Name -->
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">Leave Type</th>
+                    <td mat-cell *matCellDef="let row">
+                        <div class="leave-type-cell">
+                            <span class="leave-dot"></span>
+                            <span class="f-w-500">{{ row.name }}</span>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <!-- Max Days -->
+                <ng-container matColumnDef="maxDaysPerYear">
+                    <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">Max Days / Year</th>
+                    <td mat-cell *matCellDef="let row">
+                        <span class="days-chip">
+                            <mat-icon class="chip-icon">event_available</mat-icon>
+                            {{ row.maxDaysPerYear }} days
+                        </span>
+                    </td>
+                </ng-container>
+
+                <!-- Actions -->
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">Actions</th>
+                    <td mat-cell *matCellDef="let row">
+                        <button mat-icon-button color="primary" matTooltip="Edit" (click)="editLeaveType(row)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button color="warn" matTooltip="Delete" (click)="deleteLeaveType(row.id)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+                <tr class="mat-row" *matNoDataRow>
+                    <td [colSpan]="displayedColumns.length" class="text-center p-8 text-gray-400">
+                        No leave types found.
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+        }
+
+        <mat-paginator [pageSize]="10" showFirstLastButtons [style.display]="isLoading ? 'none' : ''">
+        </mat-paginator>
+
+    </mat-card-content>
+</mat-card>

@@ -6,6 +6,7 @@
         Late,
         Absent,
         Weekend,
-        Holiday
+        Holiday,
+        Leave
     }
 }

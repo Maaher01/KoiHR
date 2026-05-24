@@ -1,0 +1,81 @@
+.table-responsive {
+  overflow-x: auto;
+}
+
+.employee-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #6366f1;
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  text-transform: uppercase;
+}
+
+.leave-type-chip {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  background-color: #f3f4f6;
+  color: #374151;
+  white-space: nowrap;
+}
+
+.duration-chip {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  background-color: #eff6ff;
+  color: #2563eb;
+  white-space: nowrap;
+}
+
+.status-chip {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+
+  &.chip-pending {
+    background-color: #fff8e1;
+    color: #f57f17;
+  }
+  &.chip-approved {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+  }
+  &.chip-rejected {
+    background-color: #ffebee;
+    color: #c62828;
+  }
+}
+
+.approve-btn {
+  color: #16a34a;
+  &:hover {
+    background-color: #dcfce7;
+  }
+}
+
+.reject-btn {
+  color: #dc2626;
+  &:hover {
+    background-color: #fee2e2;
+  }
+}

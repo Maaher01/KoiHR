@@ -14,5 +14,7 @@ namespace EmployeeManagementApi.Models
         public DbSet<AttendanceSetting> AttendanceSettings { get; set; }
         public DbSet<Weekend> Weekends { get; set; }
         public DbSet<Holiday> Holidays { get; set; }
+        public DbSet<LeaveType> LeaveTypes { get; set; }
+        public DbSet<LeaveApplication> LeaveApplications { get; set; }
     }
 }

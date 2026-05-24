@@ -68,6 +68,11 @@ export const routes: Routes = [
           import('./pages/holiday/holiday.routes').then((m) => m.HolidayRoutes),
         canActivate: [roleGuard(['Admin', 'HR'])],
       },
+      {
+        path: 'leave',
+        loadChildren: () =>
+          import('./pages/leave/leave.routes').then((m) => m.LeaveRoutes),
+      },
     ],
   },
   {

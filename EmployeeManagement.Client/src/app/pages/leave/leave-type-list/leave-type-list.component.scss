@@ -1,0 +1,36 @@
+.table-responsive {
+  overflow-x: auto;
+}
+
+.leave-type-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.leave-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #6366f1;
+  flex-shrink: 0;
+}
+
+.days-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  background-color: #eff6ff;
+  color: #2563eb;
+  white-space: nowrap;
+
+  .chip-icon {
+    font-size: 14px;
+    height: 14px;
+    width: 14px;
+  }
+}

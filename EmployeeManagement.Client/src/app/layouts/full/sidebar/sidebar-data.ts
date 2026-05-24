@@ -42,6 +42,41 @@ export const navItems: NavItem[] = [
     ],
   },
   {
+    displayName: 'Leave',
+    iconName: 'solar:sleeping-line-duotone',
+    chip: true,
+    children: [
+      {
+        displayName: 'Leave Configuration',
+        iconName: 'solar:settings-minimalistic-line-duotone',
+        route: '/leave/leave-type',
+        roles: ['Admin', 'HR'],
+        chip: true,
+      },
+      {
+        displayName: 'Leave Applications',
+        iconName: 'solar:list-arrow-up-line-duotone',
+        route: '/leave/leave-application',
+        roles: ['Admin', 'HR'],
+        chip: true,
+      },
+      {
+        displayName: 'My Leave Applications',
+        iconName: 'solar:traffic-economy-line-duotone',
+        route: '/leave/leave-application/employee',
+        roles: ['Employee', 'HR'],
+        chip: true,
+      },
+      {
+        displayName: 'My Leave Balance',
+        iconName: 'solar:document-line-duotone',
+        route: '/leave/leave-balance',
+        roles: ['Employee', 'HR'],
+        chip: true,
+      },
+    ],
+  },
+  {
     navCap: 'HR',
     divider: true,
     roles: ['Admin', 'HR'],
