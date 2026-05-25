@@ -82,6 +82,8 @@ namespace EmployeeManagementApi.Controllers
         public async Task<IActionResult> CreateLeaveApplication([FromBody] LeaveApplicationCreateDto dto)
         {
             var userId = User.FindFirstValue("uid");
+            if (userId == null) return Unauthorized("User not found in token");
+
             var user = await _context.Users
                 .Include(u => u.Employee)
                 .FirstOrDefaultAsync(u => u.Id == userId);

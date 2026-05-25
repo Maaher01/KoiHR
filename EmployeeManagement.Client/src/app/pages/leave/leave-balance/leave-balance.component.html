@@ -1,1 +1,53 @@
-<p>leave-balance works!</p>
+<mat-card class="cardWithShadow theme-card">
+    <mat-card-header>
+        <div class="flex flex-row justify-between items-center w-100">
+            <div>
+                <mat-card-title class="m-b-0">Leave Balance</mat-card-title>
+            </div>
+        </div>
+    </mat-card-header>
+
+    <mat-card-content class="b-t-1">
+
+        @if (isLoading) {
+        <div class="flex justify-center items-center p-8">
+            <mat-spinner diameter="40" />
+        </div>
+        }
+
+        @if (errorResponse) {
+        <mat-error class="p-4">{{ errorResponse }}</mat-error>
+        }
+
+        @if (!isLoading) {
+        <div class="balance-grid">
+            @for (balance of leaveBalances; track balance.leaveTypeId) {
+            <div class="balance-card">
+
+                <div class="balance-header">
+                    <span class="leave-type-name">{{ balance.leaveTypeName }}</span>
+                    <span class="remaining-badge" [class.badge-low]="balance.remainingDays <= 2">
+                        {{ balance.remainingDays }} left
+                    </span>
+                </div>
+
+                <div class="balance-numbers">
+                    <span class="used-days">{{ balance.usedDays }}</span>
+                    <span class="separator">/</span>
+                </div>
+
+                <div class="balance-footer">
+                    <span>{{ balance.remainingDays }} days remaining</span>
+                </div>
+
+            </div>
+            }
+
+            @if (leaveBalances.length === 0) {
+            <p class="no-data">No leave balance data available.</p>
+            }
+        </div>
+        }
+
+    </mat-card-content>
+</mat-card>

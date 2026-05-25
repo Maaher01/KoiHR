@@ -8,6 +8,7 @@ namespace EmployeeManagementApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "HR,Admin")]
     public class LeaveTypeController : ControllerBase
     {
         private readonly EmployeeDbContext _context;
@@ -18,7 +19,6 @@ namespace EmployeeManagementApi.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "HR,Admin")]
         public async Task<IActionResult> GetAllLeaveTypes()
         {
             var leaveTypes = await _context.LeaveTypes.ToListAsync();
@@ -27,7 +27,6 @@ namespace EmployeeManagementApi.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "HR,Admin")]
         public async Task<IActionResult> AddLeaveType([FromBody] LeaveTypeCreateUpdateDto dto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -45,7 +44,6 @@ namespace EmployeeManagementApi.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "HR,Admin")]
         public async Task<IActionResult> UpdateLeaveType(int id, [FromBody] LeaveTypeCreateUpdateDto dto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -63,7 +61,6 @@ namespace EmployeeManagementApi.Controllers
 
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "HR,Admin")]
         public async Task<IActionResult> DeleteLeaveType(int id)
         {
             var leaveType = await _context.LeaveTypes.FindAsync(id);

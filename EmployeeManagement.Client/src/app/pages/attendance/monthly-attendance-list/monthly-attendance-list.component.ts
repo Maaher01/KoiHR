@@ -161,6 +161,8 @@ export class MonthlyAttendanceListComponent {
         return { label: 'Weekend', class: 'chip-weekend' };
       case 4:
         return { label: 'Holiday', class: 'chip-holiday' };
+      case 5:
+        return { label: 'Leave', class: 'chip-leave' };
       default:
         return { label: 'Unknown', class: '' };
     }

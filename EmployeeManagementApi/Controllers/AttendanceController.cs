@@ -4,7 +4,6 @@ using EmployeeManagementApi.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Security.Claims;
 
 namespace EmployeeManagementApi.Controllers
@@ -40,6 +39,9 @@ namespace EmployeeManagementApi.Controllers
             var allHolidays = await _context.Holidays
                     .Select(h => new { h.StartDate, h.EndDate })
                     .ToListAsync();
+            var approvedLeaves = await _context.LeaveApplications
+                    .Where(al => al.Status == LeaveStatus.Approved)
+                    .ToListAsync();
 
             var dateOnly = DateOnly.FromDateTime(date);
 
@@ -72,6 +74,21 @@ namespace EmployeeManagementApi.Controllers
                         InTime = null,
                         OutTime = null,
                         Status = AttendanceStatus.Holiday,
+                        Note = null
+                    };
+                }
+
+                var isLeave = approvedLeaves.Any(al => al.EmployeeId == e.Id 
+                                                   && dateOnly >= al.StartDate && dateOnly <= al.EndDate);
+                if (isLeave)
+                {
+                    return new AttendanceGetDto
+                    {
+                        EmployeeName = e.Name,
+                        Date = date,
+                        InTime = null,
+                        OutTime = null,
+                        Status = AttendanceStatus.Leave,
                         Note = null
                     };
                 }
@@ -110,6 +127,10 @@ namespace EmployeeManagementApi.Controllers
             var allHolidays = await _context.Holidays
                 .Select(h => new { h.StartDate, h.EndDate })
                 .ToListAsync();
+            var approvedLeaves = await _context.LeaveApplications
+                .Where(al => al.EmployeeId == employee.Id
+                && al.Status == LeaveStatus.Approved)
+                .ToListAsync();
 
             var today = DateTime.Today;
 
@@ -147,6 +168,20 @@ namespace EmployeeManagementApi.Controllers
                         InTime = null,
                         OutTime = null,
                         Status = AttendanceStatus.Holiday,
+                        Note = null
+                    };
+                }
+
+                var isLeave = approvedLeaves.Any(al => dateOnly >= al.StartDate && dateOnly <= al.EndDate);
+                if (isLeave)
+                {
+                    return new AttendanceGetDto
+                    {
+                        EmployeeName = employee.Name,
+                        Date = date,
+                        InTime = null,
+                        OutTime = null,
+                        Status = AttendanceStatus.Leave,
                         Note = null
                     };
                 }
@@ -200,6 +235,10 @@ namespace EmployeeManagementApi.Controllers
             var allHolidays = await _context.Holidays
                 .Select(h => new { h.StartDate, h.EndDate })
                 .ToListAsync();
+            var approvedLeaves = await _context.LeaveApplications
+                .Where(al => al.EmployeeId == user.Employee.Id
+                && al.Status == LeaveStatus.Approved)
+                .ToListAsync();
 
             var dateOfJoining = DateOnly.FromDateTime(employee.DateOfJoining);
             var today = DateOnly.FromDateTime(DateTime.Today);
@@ -238,6 +277,20 @@ namespace EmployeeManagementApi.Controllers
                         InTime = null,
                         OutTime = null,
                         Status = AttendanceStatus.Holiday,
+                        Note = null
+                    };
+                }
+
+                var isLeave = approvedLeaves.Any(al => date >= al.StartDate && date <= al.EndDate);
+                if(isLeave)
+                {
+                    return new AttendanceGetDto
+                    {
+                        EmployeeName = employee.Name,
+                        Date = date.ToDateTime(TimeOnly.MinValue),
+                        InTime = null,
+                        OutTime = null,
+                        Status = AttendanceStatus.Leave,
                         Note = null
                     };
                 }
