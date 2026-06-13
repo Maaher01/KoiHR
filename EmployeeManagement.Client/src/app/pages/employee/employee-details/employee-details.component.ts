@@ -5,12 +5,14 @@ import { Employee } from 'src/app/models/employee.interface';
 import { DatePipe } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from 'src/app/material.module';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-employee-details',
-  imports: [CommonModule, MaterialModule],
+  imports: [CommonModule, MaterialModule, RouterModule],
   providers: [DatePipe],
   templateUrl: './employee-details.component.html',
+  styleUrl: './employee-details.component.scss',
 })
 export class EmployeeDetailsComponent implements OnInit {
   errorMessage: any;
@@ -35,5 +37,18 @@ export class EmployeeDetailsComponent implements OnInit {
         this.errorMessage = err.message;
       },
     });
+  }
+
+  getGender(gender: number | null | undefined): string {
+    switch (gender) {
+      case 0:
+        return 'Male';
+      case 1:
+        return 'Female';
+      case 2:
+        return 'Other';
+      default:
+        return '—';
+    }
   }
 }

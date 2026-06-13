@@ -5,4 +5,10 @@ export interface Employee {
   departmentName?: string;
   dateOfJoining: string;
   image?: string;
+  phone?: string;
+  address?: string;
+  dob: string;
+  gender?: number | null;
+  designation: string;
+  basicSalary: number;
 }

@@ -19,9 +19,10 @@ export class EmployeeListComponent implements OnInit {
   employees = new MatTableDataSource<Employee>([]);
   errorResponse: any;
   displayedColumns: string[] = [
-    'id',
     'image',
+    'id',
     'name',
+    'designation',
     'departmentName',
     'dateOfJoining',
     'action',

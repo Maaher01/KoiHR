@@ -1,50 +1,105 @@
 <mat-card class="cardWithShadow theme-card">
     <mat-card-header>
-        <mat-card-title class="m-b-0">Employee Details</mat-card-title>
+        <div class="flex flex-row justify-between items-center w-100">
+            <mat-card-title class="m-b-0">Employee Details</mat-card-title>
+            <button mat-stroked-button routerLink="/employee">
+                <mat-icon>arrow_back</mat-icon> Back
+            </button>
+        </div>
     </mat-card-header>
 
     <mat-card-content class="b-t-1">
-        @if (employee) {
-        <div class="row m-t-24">
 
-            <!-- Left: Image -->
-            <div class="col-lg-3 flex flex-col align-items-center">
+        @if (employee) {
+        <div class="details-layout">
+
+            <!-- Left: Image + Name -->
+            <div class="profile-col">
                 <img [src]="imageUrl ?? 'assets/images/avatars/default.png'" alt="{{ employee.name }}"
-                    style="height: 200px; object-fit: contain; border-radius: 5%; border: 1px solid rgba(0,0,0,0.1);" />
+                    class="profile-img" />
+                <span class="profile-name">{{ employee.name }}</span>
+                <span class="profile-designation">{{ employee.designation || 'No Designation' }}</span>
             </div>
 
-            <!-- Right: Details -->
-            <div class="col-lg-9">
-                <div class="row">
+            <!-- Right: Details Grid -->
+            <div class="info-col">
 
-                    <div class="col-lg-6 m-b-24">
-                        <span class="f-s-15 text-muted d-block m-b-4">Employee ID</span>
-                        <span class="f-s-17 f-w-600">{{ employee.id }}</span>
+                <div class="section-title">Personal Information</div>
+                <div class="info-grid">
+
+                    <div class="info-item">
+                        <span class="info-label">Employee ID</span>
+                        <span class="info-value">#{{ employee.id }}</span>
                     </div>
 
-                    <div class="col-lg-6 m-b-24">
-                        <span class="f-s-15 text-muted d-block m-b-4">Full Name</span>
-                        <span class="f-s-17 f-w-600">{{ employee.name }}</span>
+                    <div class="info-item">
+                        <span class="info-label">Full Name</span>
+                        <span class="info-value">{{ employee.name }}</span>
                     </div>
 
-                    <div class="col-lg-6 m-b-24">
-                        <span class="f-s-15 text-muted d-block m-b-4">Department</span>
-                        <span class="f-s-17 f-w-600">{{ employee.departmentName ?? 'N/A' }}</span>
+                    <div class="info-item">
+                        <span class="info-label">Date of Birth</span>
+                        <span class="info-value">
+                            {{ employee.dob ? (employee.dob | date: 'dd MMM, yyyy') : '—' }}
+                        </span>
                     </div>
 
-                    <div class="col-lg-6 m-b-24">
-                        <span class="f-s-15 text-muted d-block m-b-4">Date of Joining</span>
-                        <span class="f-s-17 f-w-600">{{ employee.dateOfJoining | date: 'dd, MMMM yyyy' }}</span>
+                    <div class="info-item">
+                        <span class="info-label">Gender</span>
+                        <span class="info-value">{{ getGender(employee.gender) }}</span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Phone</span>
+                        <span class="info-value">{{ employee.phone || '—' }}</span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Address</span>
+                        <span class="info-value">{{ employee.address || '—' }}</span>
                     </div>
 
                 </div>
+
+                <div class="section-title m-t-24">Employment Information</div>
+                <div class="info-grid">
+
+                    <div class="info-item">
+                        <span class="info-label">Department</span>
+                        <span class="info-value">{{ employee.departmentName || '—' }}</span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Designation</span>
+                        <span class="info-value">{{ employee.designation || '—' }}</span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Date of Joining</span>
+                        <span class="info-value">
+                            {{ employee.dateOfJoining | date: 'dd MMM, yyyy' }}
+                        </span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Basic Salary</span>
+                        <span class="info-value salary-value">
+                            ৳{{ employee.basicSalary | number: '1.2-2' }}
+                        </span>
+                    </div>
+
+                </div>
+
             </div>
 
         </div>
         } @else if (errorMessage) {
-        <mat-error>{{ errorMessage }}</mat-error>
+        <mat-error class="p-4">{{ errorMessage }}</mat-error>
         } @else {
-        <p class="text-muted m-t-16">Loading...</p>
+        <div class="flex justify-center items-center p-8">
+            <mat-spinner diameter="40" />
+        </div>
         }
+
     </mat-card-content>
 </mat-card>

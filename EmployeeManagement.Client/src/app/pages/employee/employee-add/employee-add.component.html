@@ -1,176 +1,155 @@
 <mat-card class="cardWithShadow theme-card">
   <mat-card-header>
-    <mat-card-title class="m-b-0">Add New Employee</mat-card-title>
+    <div class="flex flex-row justify-between items-center w-100">
+      <mat-card-title class="m-b-0">Add New Employee</mat-card-title>
+      <button mat-stroked-button routerLink="/employee">
+        <mat-icon>arrow_back</mat-icon> Back
+      </button>
+    </div>
   </mat-card-header>
+
   <mat-card-content class="b-t-1">
     <form [formGroup]="employeeAddForm" (ngSubmit)="addEmployee()">
-      <div class="row">
-        <div class="col-lg-6">
-          <mat-label class="f-w-600 m-b-8 d-block">Employee Name</mat-label>
-          <mat-form-field appearance="outline" class="w-100" color="primary">
-            <input matInput formControlName="name" id="name" type="text" />
-          </mat-form-field>
 
-          @if (
-            (employeeAddForm.controls["name"]?.dirty ||
-              employeeAddForm.controls["name"]?.touched) &&
-            employeeAddForm.controls["name"].invalid
-          ) {
-            <div class="m-b-8">
-              @if (employeeAddForm.controls["name"]?.hasError("required")) {
-                <mat-error>Employee name is required</mat-error>
-              }
-            </div>
-          }
-        </div>
+      <p class="section-label">Personal Information</p>
+      <div class="row">
+
+        <!-- Name -->
         <div class="col-lg-6">
-          <mat-label class="f-w-600 m-b-8 d-block">Department</mat-label>
+          <mat-label class="f-w-600 m-b-8 d-block">Full Name <span class="required">*</span></mat-label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="departmentId">
-              @for (department of departments; track department.id) {
-                <mat-option [value]="department.id">{{
-                  department.name
-                }}</mat-option>
+            <input matInput formControlName="name" type="text" placeholder="e.g. John Doe" />
+            <mat-error>Employee name is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Gender -->
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8 d-block">Gender</mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select formControlName="gender">
+              @for (g of genderOptions; track g) {
+              <mat-option [value]="g.value">{{ g.label }}</mat-option>
               }
             </mat-select>
           </mat-form-field>
-
-          @if (
-            (employeeAddForm.controls["departmentId"]?.dirty ||
-              employeeAddForm.controls["departmentId"]?.touched) &&
-            employeeAddForm.controls["departmentId"].invalid
-          ) {
-            <div class="m-b-8">
-              @if (
-                employeeAddForm.controls["departmentId"]?.hasError("required")
-              ) {
-                <mat-error>Department is required</mat-error>
-              }
-            </div>
-          }
         </div>
+
+        <!-- DOB -->
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8 d-block">Date of Birth</mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <input matInput formControlName="dob" [matDatepicker]="dobPicker" readonly />
+            <mat-datepicker-toggle matIconSuffix [for]="dobPicker" />
+            <mat-datepicker #dobPicker />
+          </mat-form-field>
+        </div>
+
+        <!-- Phone -->
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8 d-block">Phone</mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <input matInput formControlName="phone" type="tel" placeholder="e.g. 01XXXXXXXXX" />
+          </mat-form-field>
+        </div>
+
+        <!-- Address -->
+        <div class="col-lg-12">
+          <mat-label class="f-w-600 m-b-8 d-block">Address</mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <textarea matInput formControlName="address" rows="2" placeholder="e.g. 123 Main Street, Dhaka"></textarea>
+          </mat-form-field>
+        </div>
+
       </div>
+
+      <p class="section-label m-t-8">Employment Information</p>
+      <div class="row">
+
+        <!-- Department -->
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8 d-block">Department <span class="required">*</span></mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select formControlName="departmentId">
+              @for (department of departments; track department.id) {
+              <mat-option [value]="department.id">{{ department.name }}</mat-option>
+              }
+            </mat-select>
+            <mat-error>Department is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Designation -->
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8 d-block">Designation</mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <input matInput formControlName="designation" placeholder="e.g. Software Engineer" />
+          </mat-form-field>
+        </div>
+
+        <!-- Date of Joining -->
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8 d-block">Joining Date <span class="required">*</span></mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <input matInput formControlName="dateOfJoining" [matDatepicker]="joiningPicker" readonly />
+            <mat-datepicker-toggle matIconSuffix [for]="joiningPicker" />
+            <mat-datepicker #joiningPicker />
+            <mat-error>Joining date is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Basic Salary -->
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8 d-block">Basic Salary <span class="required">*</span></mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <input matInput formControlName="basicSalary" type="number" min="1" />
+            <mat-error>Valid salary is required</mat-error>
+          </mat-form-field>
+        </div>
+
+      </div>
+
+      <p class="section-label m-t-8">Profile Picture</p>
       <div class="row">
         <div class="col-lg-6">
-          <mat-label class="f-w-600 m-b-8 d-block">Joining Date</mat-label>
-          <mat-form-field appearance="outline" class="w-100">
-            <input
-              matInput
-              formControlName="dateOfJoining"
-              [matDatepicker]="picker"
-            />
-            <mat-datepicker-toggle
-              matIconSuffix
-              [for]="picker"
-            ></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
-
-          @if (
-            (employeeAddForm.controls["dateOfJoining"]?.dirty ||
-              employeeAddForm.controls["dateOfJoining"]?.touched) &&
-            employeeAddForm.controls["dateOfJoining"].invalid
-          ) {
-            <div class="m-b-8">
-              @if (
-                employeeAddForm.controls["dateOfJoining"]?.hasError("required")
-              ) {
-                <mat-error>Joining date is required</mat-error>
-              }
-            </div>
-          }
-        </div>
-        <div class="col-lg-6">
-          <mat-label class="f-w-600 m-b-8 d-block">Picture</mat-label>
-          <input
-            hidden
-            type="file"
-            accept="image/png, image/jpg"
-            #fileInput
-            (change)="onFileChange($event)"
-          />
-          <div
-            class="w-100 d-flex align-items-center gap-3"
-            style="
-              border: 1px solid rgba(0, 0, 0, 0.1);
-              border-radius: 12px;
-              height: 42px;
-              cursor: pointer;
-            "
-            (click)="fileInput.click()"
-          >
+          <input hidden type="file" accept="image/png, image/jpg" #fileInput (change)="onFileChange($event)" />
+          <div class="file-picker" (click)="fileInput.click()">
             <button matButton="filled" type="button" style="flex-shrink: 0">
               Choose Image
             </button>
-            <span
-              class="f-s-12"
-              style="
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-              "
-            >
-              {{ fileName || "No file chosen" }}
-            </span>
+            <span class="file-name">{{ fileName || 'No file chosen' }}</span>
           </div>
 
           @if (imagePreview) {
-            <div class="m-t-12">
-              <img
-                [src]="imagePreview"
-                alt="Image Preview"
-                style="
-                  width: 100%;
-                  max-width: 300px;
-                  object-fit: contain;
-                  border-radius: 12px;
-                  border: 1px solid rgba(0, 0, 0, 0.1);
-                "
-              />
-            </div>
+          <div class="m-t-12">
+            <img [src]="imagePreview" alt="Preview" class="image-preview" />
+          </div>
           }
 
-          @if (
-            (employeeAddForm.controls["image"]?.dirty ||
-              employeeAddForm.controls["image"]?.touched) &&
-            employeeAddForm.controls["image"].invalid
-          ) {
-            <div class="m-b-8 m-t-4">
-              @if (employeeAddForm.controls["image"]?.hasError("required")) {
-                <mat-error>Image is required</mat-error>
-              }
-              @if (
-                employeeAddForm.controls["image"]?.hasError("invalidFileType")
-              ) {
-                <mat-error>Only JPG and PNG files are allowed</mat-error>
-              }
-              @if (
-                employeeAddForm.controls["image"]?.hasError("fileTooLarge")
-              ) {
-                <mat-error>File size must not exceed 2MB</mat-error>
-              }
-            </div>
+          @if ((employeeAddForm.controls['image']?.dirty || employeeAddForm.controls['image']?.touched)
+          && employeeAddForm.controls['image'].invalid) {
+          <div class="m-t-4">
+            @if (employeeAddForm.controls['image']?.hasError('invalidFileType')) {
+            <mat-error>Only JPG and PNG files are allowed</mat-error>
+            }
+            @if (employeeAddForm.controls['image']?.hasError('fileTooLarge')) {
+            <mat-error>File size must not exceed 2MB</mat-error>
+            }
+          </div>
           }
         </div>
       </div>
 
       @if (errorMessage) {
-        <mat-error>
-          {{ errorMessage }}
-        </mat-error>
+      <mat-error class="m-t-12">{{ errorMessage }}</mat-error>
       }
 
-      <div class="m-t-12">
-        <button
-          mat-flat-button
-          color="primary"
-          class="m-r-8"
-          type="submit"
-          [disabled]="employeeAddForm.invalid"
-        >
-          Submit
+      <div class="m-t-24">
+        <button mat-flat-button color="primary" type="submit" [disabled]="employeeAddForm.invalid">
+          Add Employee
         </button>
       </div>
+
     </form>
   </mat-card-content>
 </mat-card>
