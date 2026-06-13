@@ -106,6 +106,20 @@ export const navItems: NavItem[] = [
     roles: ['Admin', 'HR'],
   },
   {
+    displayName: 'Salary',
+    iconName: 'solar:dollar-line-duotone',
+    chip: true,
+    roles: ['Admin', 'HR'],
+    children: [
+      {
+        displayName: 'Benefits',
+        iconName: 'solar:heart-line-duotone',
+        route: '/',
+        chip: true,
+      },
+    ],
+  },
+  {
     navCap: 'ADMINISTRATION',
     divider: true,
     roles: ['Admin', 'HR'],

@@ -4,6 +4,7 @@ using EmployeeManagementApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmployeeManagementApi.Migrations
 {
     [DbContext(typeof(EmployeeDbContext))]
-    partial class EmployeeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260613164148_AddedSalaryPaymentTable")]
+    partial class AddedSalaryPaymentTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -346,9 +349,6 @@ namespace EmployeeManagementApi.Migrations
 
                     b.Property<DateTime>("PayDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("PaymentMethod")
-                        .HasColumnType("int");
 
                     b.Property<int>("SalaryEntryId")
                         .HasColumnType("int");
