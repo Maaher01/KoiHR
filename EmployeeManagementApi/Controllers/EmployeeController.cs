@@ -27,11 +27,17 @@ namespace EmployeeManagementApi.Controllers
                 .Select(e => new EmployeeGetDto
                 {
                     Id = e.Id,
-                    Name = e.Name,
+                    Name = e.Name!,
                     DepartmentId = e.DepartmentId,
-                    DepartmentName = e.Department.Name,
+                    DepartmentName = e.Department!.Name,
                     DateOfJoining = e.DateOfJoining,
-                    Image = e.Image
+                    Image = e.Image,
+                    Phone = e.Phone,
+                    Address = e.Address,
+                    DOB = e.DOB,
+                    Gender = e.Gender,
+                    Designation = e.Designation,
+                    BasicSalary = e.BasicSalary
                 }).ToListAsync();
 
             return Ok(employees);
@@ -49,11 +55,17 @@ namespace EmployeeManagementApi.Controllers
             var result = new EmployeeGetDto
             {
                 Id = employee.Id,
-                Name = employee.Name,
+                Name = employee.Name!,
                 DepartmentId = employee.DepartmentId,
                 DepartmentName = employee.Department?.Name,
                 DateOfJoining = employee.DateOfJoining,
-                Image = employee.Image
+                Image = employee.Image,
+                Phone = employee.Phone,
+                Address = employee.Address,
+                DOB = employee.DOB,
+                Gender = employee.Gender,
+                Designation = employee.Designation,
+                BasicSalary = employee.BasicSalary
             };
 
             return Ok(result);
@@ -73,7 +85,13 @@ namespace EmployeeManagementApi.Controllers
                 Name = dto.Name,
                 DepartmentId = dto.DepartmentId,
                 DateOfJoining = dto.DateOfJoining,
-                Image = dto.Image
+                Image = dto.Image,
+                Phone = dto.Phone,
+                Address = dto.Address,
+                DOB = dto.DOB,
+                Gender = dto.Gender,
+                Designation = dto.Designation,
+                BasicSalary = dto.BasicSalary
             };
 
             _context.Employees.Add(employee);
@@ -86,7 +104,13 @@ namespace EmployeeManagementApi.Controllers
                 DepartmentId = employee.DepartmentId,
                 DepartmentName = (await _context.Departments.FindAsync(employee.DepartmentId))?.Name,
                 DateOfJoining = employee.DateOfJoining,
-                Image = employee.Image
+                Image = employee.Image,
+                Phone = employee.Phone,
+                Address = employee.Address,
+                DOB = employee.DOB,
+                Gender = employee.Gender,
+                Designation = employee.Designation,
+                BasicSalary = employee.BasicSalary
             };
 
             return Ok(result);
@@ -105,6 +129,12 @@ namespace EmployeeManagementApi.Controllers
             existingEmployee.DepartmentId = dto.DepartmentId;
             existingEmployee.DateOfJoining = dto.DateOfJoining;
             existingEmployee.Image = dto.Image;
+            existingEmployee.Phone = dto.Phone;
+            existingEmployee.Address = dto.Address;
+            existingEmployee.DOB = dto.DOB;
+            existingEmployee.Gender = dto.Gender;
+            existingEmployee.Designation = dto.Designation;
+            existingEmployee.BasicSalary = dto.BasicSalary;
 
             await _context.SaveChangesAsync();
 
@@ -115,7 +145,13 @@ namespace EmployeeManagementApi.Controllers
                 DepartmentId = existingEmployee.DepartmentId,
                 DepartmentName = (await _context.Departments.FindAsync(existingEmployee.DepartmentId))?.Name,
                 DateOfJoining = existingEmployee.DateOfJoining,
-                Image = existingEmployee.Image
+                Image = existingEmployee.Image,
+                Phone = existingEmployee.Phone,
+                Address = existingEmployee.Address,
+                DOB = existingEmployee.DOB,
+                Gender = existingEmployee.Gender,
+                Designation = existingEmployee.Designation,
+                BasicSalary = existingEmployee.BasicSalary
             };
 
             return Ok(result);

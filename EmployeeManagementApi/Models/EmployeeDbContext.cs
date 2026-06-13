@@ -16,5 +16,8 @@ namespace EmployeeManagementApi.Models
         public DbSet<Holiday> Holidays { get; set; }
         public DbSet<LeaveType> LeaveTypes { get; set; }
         public DbSet<LeaveApplication> LeaveApplications { get; set; }
+        public DbSet<SalaryBenefit> SalaryBenefits { get; set; }
+        public DbSet<SalaryEntry> SalaryEntries { get; set; }
+        public DbSet<Notice> Notices { get; set; }
     }
 }
