@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.development';
-import { Weekend } from '../models/weekend.interface';
+import { Weekend, WeekendAddEdit } from '../models/weekend.interface';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -16,7 +16,7 @@ export class WeekendService {
     return this._httpClient.get<Weekend[]>(this.apiUrl);
   }
 
-  setWeekend(editPayload: any) {
-    return this._httpClient.post(this.apiUrl, editPayload);
+  setWeekend(editPayload: WeekendAddEdit): Observable<Weekend> {
+    return this._httpClient.post<Weekend>(this.apiUrl, editPayload);
   }
 }

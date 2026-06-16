@@ -4,8 +4,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmDialogComponent } from 'src/app/components/confirm-dialog/confirm-dialog.component';
-import { LeaveTypeAddDialogComponent } from 'src/app/components/leave-type-add-dialog/leave-type-add-dialog.component';
-import { LeaveTypeEditDialogComponent } from 'src/app/components/leave-type-edit-dialog/leave-type-edit-dialog.component';
+import { LeaveTypeDialogComponent } from 'src/app/components/leave-type-dialog/leave-type-dialog.component';
 import { WarningDialogComponent } from 'src/app/components/warning-dialog/warning-dialog.component';
 import { MaterialModule } from 'src/app/material.module';
 import { LeaveType } from 'src/app/models/leave-type.interface';
@@ -52,37 +51,23 @@ export class LeaveTypeListComponent implements OnInit {
     });
   }
 
-  addLeaveType() {
-    const dialogConf = new MatDialogConfig();
+  openAddDialog() {
+    const dialogRef = this.dialog.open(LeaveTypeDialogComponent, {
+      width: '450px',
+      data: { heading: 'Add Leave Type' },
+    });
 
-    dialogConf.disableClose = true;
-    dialogConf.autoFocus = true;
-    dialogConf.width = '500px';
-    dialogConf.data = {
-      heading: 'Add Leave Type',
-    };
-
-    const dialogRef = this.dialog.open(LeaveTypeAddDialogComponent, dialogConf);
     dialogRef.afterClosed().subscribe((result) => {
       if (result) this.getAllLeaveTypes();
     });
   }
 
-  editLeaveType(leaveType: LeaveType) {
-    const dialogConf = new MatDialogConfig();
+  openEditDialog(leaveType: LeaveType) {
+    const dialogRef = this.dialog.open(LeaveTypeDialogComponent, {
+      width: '450px',
+      data: { heading: 'Edit Leave Type', leaveType },
+    });
 
-    dialogConf.disableClose = true;
-    dialogConf.autoFocus = true;
-    dialogConf.width = '500px';
-    dialogConf.data = {
-      heading: 'Edit Leave Type',
-      leaveType: leaveType,
-    };
-
-    const dialogRef = this.dialog.open(
-      LeaveTypeEditDialogComponent,
-      dialogConf,
-    );
     dialogRef.afterClosed().subscribe((result) => {
       if (result) this.getAllLeaveTypes();
     });

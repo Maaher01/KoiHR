@@ -6,3 +6,10 @@ export interface AttendanceSetting {
   departmentId: number;
   departmentName: string;
 }
+
+export interface AttendanceSettingAddEdit {
+  inTime: string;
+  outTime: string;
+  gracePeriodMinutes: number;
+  departmentId: number;
+}

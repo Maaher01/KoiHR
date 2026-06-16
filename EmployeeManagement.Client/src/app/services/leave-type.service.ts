@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment.development';
 import { LeaveType } from '../models/leave-type.interface';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { LeaveTypeAddEdit } from '../models/leave-type.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ export class LeaveTypeService {
 
   private _httpClient = inject(HttpClient);
 
-  addLeaveType(addPayload: LeaveType): Observable<LeaveType> {
+  addLeaveType(addPayload: LeaveTypeAddEdit): Observable<LeaveType> {
     return this._httpClient.post<LeaveType>(this.apiUrl, addPayload);
   }
 
@@ -20,8 +21,11 @@ export class LeaveTypeService {
     return this._httpClient.get<LeaveType[]>(this.apiUrl);
   }
 
-  editLeaveType(id: number, editPayload: any) {
-    return this._httpClient.put(this.apiUrl + `${id}`, editPayload);
+  editLeaveType(
+    id: number,
+    editPayload: LeaveTypeAddEdit,
+  ): Observable<LeaveType> {
+    return this._httpClient.put<LeaveType>(this.apiUrl + `${id}`, editPayload);
   }
 
   deleteLeaveType(id: number) {

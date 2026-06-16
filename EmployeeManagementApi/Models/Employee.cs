@@ -9,10 +9,11 @@ namespace EmployeeManagementApi.Models
         public int Id { get; set; }
         [Required]
         [StringLength(100)]
-        public string? Name { get; set; }
+        public string Name { get; set; } = string.Empty;
         [Range(1, int.MaxValue, ErrorMessage = "Department ID must be greater than 0")]
         public int DepartmentId { get; set; }
         public Department? Department { get; set; }
+        public string Email { get; set; } = string.Empty;
         [Required]
         public DateTime DateOfJoining { get; set; }
         public string? Image {  get; set; }

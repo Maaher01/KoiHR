@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { Attendance } from '../models/attendance.interface';
-import { AttendanceAdd } from '../models/attendance-add.interface';
+import { AttendanceAddEdit } from '../models/attendance.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -29,7 +29,7 @@ export class AttendanceService {
     });
   }
 
-  markAttendance(addPayload: AttendanceAdd): Observable<Attendance> {
+  markAttendance(addPayload: AttendanceAddEdit): Observable<Attendance> {
     return this._httpClient.post<Attendance>(this.apiUrl, addPayload);
   }
 
@@ -37,8 +37,13 @@ export class AttendanceService {
     return this._httpClient.get<Attendance>(this.apiUrl + `${id}`);
   }
 
-  updateEmployeeAttendance(editPayload: any) {
-    return this._httpClient.put(this.apiUrl + `employee/edit`, editPayload);
+  updateEmployeeAttendance(
+    editPayload: AttendanceAddEdit,
+  ): Observable<Attendance> {
+    return this._httpClient.put<Attendance>(
+      this.apiUrl + `employee/edit`,
+      editPayload,
+    );
   }
 
   getEmployeeAttendance(): Observable<Attendance[]> {

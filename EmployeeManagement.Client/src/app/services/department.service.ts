@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
-import { Department } from '../models/department.interface';
+import { Department, DepartmentAddEdit } from '../models/department.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,7 @@ export class DepartmentService {
 
   private _httpClient = inject(HttpClient);
 
-  addDepartment(addPayload: Department): Observable<Department> {
+  addDepartment(addPayload: DepartmentAddEdit): Observable<Department> {
     return this._httpClient.post<Department>(this.apiUrl, addPayload);
   }
 
@@ -20,8 +20,11 @@ export class DepartmentService {
     return this._httpClient.get<Department[]>(this.apiUrl);
   }
 
-  editDepartment(id: number, editPayload: any) {
-    return this._httpClient.put(this.apiUrl + `${id}`, editPayload);
+  editDepartment(
+    id: number,
+    editPayload: DepartmentAddEdit,
+  ): Observable<Department> {
+    return this._httpClient.put<Department>(this.apiUrl + `${id}`, editPayload);
   }
 
   deleteDepartment(id: number) {

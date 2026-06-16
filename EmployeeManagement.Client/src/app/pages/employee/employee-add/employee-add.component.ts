@@ -46,13 +46,14 @@ export class EmployeeAddComponent implements OnInit {
 
   employeeAddForm = this.fb.nonNullable.group({
     name: ['', [Validators.required]],
+    email: ['', [Validators.required, Validators.email]],
     departmentId: ['', [Validators.required]],
     dateOfJoining: ['', [Validators.required]],
     designation: [''],
     phone: [''],
     address: [''],
-    dob: [null as string | null],
-    gender: [null as number | null],
+    dob: [null as string | null, [Validators.required]],
+    gender: [null as number | null, [Validators.required]],
     basicSalary: [
       null as number | null,
       [Validators.required, Validators.min(0.01)],
@@ -124,6 +125,7 @@ export class EmployeeAddComponent implements OnInit {
   private submitEmployee(formValue: any, fileName: string) {
     const payload = {
       name: formValue.name,
+      email: formValue.email,
       departmentId: formValue.departmentId,
       dateOfJoining:
         this.datePipe.transform(formValue.dateOfJoining, 'yyyy-MM-dd') ?? '',

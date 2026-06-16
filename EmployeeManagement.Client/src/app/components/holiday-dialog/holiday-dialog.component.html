@@ -6,16 +6,14 @@
     <mat-error class="m-b-16">{{ errorMessage }}</mat-error>
     }
 
-    <form [formGroup]="holidayAddForm" class="form-grid">
+    <form [formGroup]="holidayForm" class="form-grid">
 
-        <!-- Name -->
         <mat-form-field appearance="outline" class="w-100">
             <mat-label>Holiday Name</mat-label>
             <input matInput formControlName="name" placeholder="e.g. Eid Ul Fitr Holidays" />
             <mat-error>Name is required</mat-error>
         </mat-form-field>
 
-        <!-- Start Date -->
         <mat-form-field appearance="outline" class="w-100">
             <mat-label>Start Date</mat-label>
             <input matInput [matDatepicker]="startPicker" formControlName="startDate" readonly />
@@ -24,18 +22,17 @@
             <mat-error>Start date is required</mat-error>
         </mat-form-field>
 
-        <!-- End Date -->
         <mat-form-field appearance="outline" class="w-100">
             <mat-label>End Date</mat-label>
             <input matInput [matDatepicker]="endPicker" formControlName="endDate" readonly />
             <mat-datepicker-toggle matIconSuffix [for]="endPicker" />
             <mat-datepicker #endPicker />
-            <mat-error *ngIf="holidayAddForm.get('endDate')?.hasError('required')">
-                End date is required
-            </mat-error>
-            <mat-error *ngIf="holidayAddForm.hasError('endBeforeStart')">
-                End date cannot be before start date
-            </mat-error>
+            @if (holidayForm.get('endDate')?.hasError('required')) {
+            <mat-error>End date is required</mat-error>
+            }
+            @if (holidayForm.hasError('endBeforeStart')) {
+            <mat-error>End date cannot be before start date</mat-error>
+            }
         </mat-form-field>
 
     </form>
@@ -46,7 +43,11 @@
     <button mat-stroked-button (click)="closeDialog()" [disabled]="isLoading">
         Cancel
     </button>
-    <button mat-flat-button color="primary" (click)="addHoliday()" [disabled]="isLoading">
-        @if (isLoading) { Saving... } @else { Add Holiday }
+    <button mat-flat-button color="primary" (click)="save()" [disabled]="isLoading || holidayForm.invalid">
+        @if (isLoading) {
+        Saving...
+        } @else {
+        {{ isEditMode ? 'Save Changes' : 'Add Holiday' }}
+        }
     </button>
 </mat-dialog-actions>

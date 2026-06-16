@@ -62,6 +62,7 @@ export class WeekendListComponent implements OnInit {
     const dialogRef = this.dialog.open(WeekendEditDialogComponent, dialogConf);
 
     dialogRef.afterClosed().subscribe((result) => {
+      console.log('Dialog closed with result:', result);
       if (result) this.getAllWeekends();
     });
   }

@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { SalaryPayment } from '../models/salary-payment.interface';
-import { SalaryPaymentAdd } from '../models/salary-payment-add.interface';
+import { SalaryPaymentAdd } from '../models/salary-payment.interface';
 
 @Injectable({
   providedIn: 'root',

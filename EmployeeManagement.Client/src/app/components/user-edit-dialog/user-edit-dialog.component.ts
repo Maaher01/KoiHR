@@ -79,11 +79,11 @@ export class UserEditDialogComponent implements OnInit {
 
     this.userService.editUser(this.data.user.id, payload).subscribe({
       next: () => {
-        this.closeDialog();
-        window.location.reload();
+        this.dialogRef.close(true);
       },
       error: (err) => {
-        this.errorMessage = err.message;
+        this.errorMessage =
+          err.error ?? 'Failed to update user. Please try again.';
       },
     });
   }

@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
 import { MaterialModule } from 'src/app/material.module';
 import { Employee } from 'src/app/models/employee.interface';
 import { EmployeeService } from 'src/app/services/employee.service';
-import { UserAdd } from 'src/app/models/user-add.interface';
+import { UserAdd } from 'src/app/models/user.interface';
 import { AuthService } from 'src/app/services/auth.service';
 import { DecodedToken } from 'src/app/models/decoded-token.interface';
 
@@ -96,16 +96,28 @@ export class UserAddComponent implements OnInit {
       },
       error: (err) => {
         if (err.status === 0) {
-          // Network error (no connection, server down, CORS, etc.)
           this.errorMessage =
             'Error creating department. Please try again later.';
-        } else if (err.status === 400) {
-          // Bad request / model validation
+        } else if (err.status === 400 || err.status === 409) {
           if (Array.isArray(err.error)) {
+            // IdentityResult errors: [{ code, description }]
             this.errorMessage = err.error
-              .map((e: any) => e.description)
+              .map((e: any) => e.description ?? e)
               .join(', ');
+          } else if (typeof err.error === 'string') {
+            // Plain string from BadRequest("...") or Conflict("...")
+            this.errorMessage = err.error;
+          } else if (err.error?.errors) {
+            // ModelState dictionary: { errors: { fieldName: ["msg1", "msg2"] } }
+            this.errorMessage = Object.values(err.error.errors)
+              .flat()
+              .join(', ');
+          } else {
+            this.errorMessage = 'Invalid request. Please check your input.';
           }
+        } else {
+          this.errorMessage =
+            'An unexpected error occurred. Please try again later.';
         }
       },
     });

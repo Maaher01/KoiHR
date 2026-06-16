@@ -60,12 +60,13 @@ export class WeekendEditDialogComponent {
     this.weekendService
       .setWeekend({
         departmentId: this.data.weekend.departmentId,
+        departmentName: this.data.weekend.departmentName,
         days: selectedDays,
       })
       .subscribe({
         next: () => {
           this.isLoading = false;
-          this.closeDialog();
+          this.dialogRef.close();
         },
         error: (err) => {
           this.errorMessage = err.error?.message;

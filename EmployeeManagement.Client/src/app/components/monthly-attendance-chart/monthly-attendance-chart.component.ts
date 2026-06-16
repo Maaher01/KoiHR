@@ -1,7 +1,6 @@
 import { CommonModule, formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import { MaterialModule } from 'src/app/material.module';
 import { DashboardService } from 'src/app/services/dashboard.service';
 import {
@@ -25,7 +24,7 @@ import {
   ApexTheme,
   NgApexchartsModule,
 } from 'ng-apexcharts';
-import { AttendanceCount } from 'src/app/models/attendance-count.interface';
+import { AttendanceCount } from 'src/app/models/attendance.interface';
 import { provideNativeDateAdapter } from '@angular/material/core';
 
 export type ChartOptions = {

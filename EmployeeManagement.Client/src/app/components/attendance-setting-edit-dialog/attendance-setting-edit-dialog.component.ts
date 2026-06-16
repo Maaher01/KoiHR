@@ -56,6 +56,7 @@ export class AttendanceSettingEditDialogComponent implements OnInit {
         Number(
           this.attendanceSettingEditForm.controls['gracePeriodMinutes'].value!,
         ) ?? 0,
+      departmentId: this.data.attendanceSetting.departmentId,
     };
 
     this.attendanceSettingService

@@ -2,8 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
-import { User } from '../models/user.interface';
-import { UserAdd } from '../models/user-add.interface';
+import { User, UserAdd, UserEdit } from '../models/user.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -21,8 +20,8 @@ export class UserService {
     return this._httpClient.get<User[]>(this.apiUrl);
   }
 
-  editUser(id: number, editPayload: any) {
-    return this._httpClient.put(this.apiUrl + `${id}`, editPayload);
+  editUser(id: number, editPayload: UserEdit): Observable<User> {
+    return this._httpClient.put<User>(this.apiUrl + `${id}`, editPayload);
   }
 
   deleteUser(id: number) {

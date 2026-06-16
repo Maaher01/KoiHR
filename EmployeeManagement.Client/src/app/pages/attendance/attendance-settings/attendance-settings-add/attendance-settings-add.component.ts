@@ -9,7 +9,7 @@ import {
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { MaterialModule } from 'src/app/material.module';
-import { AttendanceSettingAdd } from 'src/app/models/attendance-setting-add.interface';
+import { AttendanceSettingAddEdit } from 'src/app/models/attendance-setting.interface';
 import { Department } from 'src/app/models/department.interface';
 import { AttendanceSettingService } from 'src/app/services/attendance-setting.service';
 import { DepartmentService } from 'src/app/services/department.service';
@@ -60,7 +60,7 @@ export class AttendanceSettingsAddComponent implements OnInit {
     const { inTime, outTime, gracePeriodMinutes, departmentId } =
       this.attendanceSettingAddForm.value;
 
-    const formValue: AttendanceSettingAdd = {
+    const formValue: AttendanceSettingAddEdit = {
       inTime: formatTime(inTime ?? null),
       outTime: formatTime(outTime ?? null),
       gracePeriodMinutes: gracePeriodMinutes ? Number(gracePeriodMinutes) : 0,

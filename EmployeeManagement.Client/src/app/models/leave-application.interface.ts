@@ -1,4 +1,5 @@
 export interface LeaveApplication {
+  id: number;
   employeeName: string;
   leaveTypeName: string;
   startDate: string;
@@ -7,4 +8,11 @@ export interface LeaveApplication {
   duration: number;
   note: string;
   status: number;
+}
+
+export interface LeaveApplicationAddEdit {
+  leaveTypeId: number;
+  startDate: string;
+  endDate: string;
+  note: string;
 }

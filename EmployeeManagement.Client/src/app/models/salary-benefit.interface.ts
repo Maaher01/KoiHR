@@ -4,3 +4,9 @@ export interface SalaryBenefit {
   isAddition: boolean;
   amount: number;
 }
+
+export interface SalaryBenefitAddEdit {
+  title: string;
+  isAddition: boolean;
+  amount: number;
+}

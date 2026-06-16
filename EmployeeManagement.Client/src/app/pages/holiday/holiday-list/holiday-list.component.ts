@@ -1,11 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmDialogComponent } from 'src/app/components/confirm-dialog/confirm-dialog.component';
-import { HolidayAddDialogComponent } from 'src/app/components/holiday-add-dialog/holiday-add-dialog.component';
-import { HolidayEditDialogComponent } from 'src/app/components/holiday-edit-dialog/holiday-edit-dialog.component';
+import { HolidayDialogComponent } from 'src/app/components/holiday-dialog/holiday-dialog.component';
 import { WarningDialogComponent } from 'src/app/components/warning-dialog/warning-dialog.component';
 import { MaterialModule } from 'src/app/material.module';
 import { Holiday } from 'src/app/models/holiday.interface';
@@ -60,31 +59,26 @@ export class HolidayListComponent implements OnInit {
     });
   }
 
-  addHoliday() {
-    const dialogConf = new MatDialogConfig();
+  openAddDialog() {
+    const dialogRef = this.dialog.open(HolidayDialogComponent, {
+      width: '450px',
+      data: { heading: 'Add Holiday' },
+    });
 
-    dialogConf.disableClose = true;
-    dialogConf.autoFocus = true;
-    dialogConf.width = '500px';
-    dialogConf.data = {
-      heading: 'Add Holiday',
-    };
-
-    this.dialog.open(HolidayAddDialogComponent, dialogConf);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) this.getAllHolidays();
+    });
   }
 
-  editHoliday(holiday: Holiday) {
-    const dialogConf = new MatDialogConfig();
+  openEditDialog(holiday: Holiday) {
+    const dialogRef = this.dialog.open(HolidayDialogComponent, {
+      width: '450px',
+      data: { heading: 'Edit Holiday', holiday },
+    });
 
-    dialogConf.disableClose = true;
-    dialogConf.autoFocus = true;
-    dialogConf.width = '500px';
-    dialogConf.data = {
-      heading: 'Edit  Holiday',
-      holiday: holiday,
-    };
-
-    this.dialog.open(HolidayEditDialogComponent, dialogConf);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) this.getAllHolidays();
+    });
   }
 
   deleteHoliday(id: number) {

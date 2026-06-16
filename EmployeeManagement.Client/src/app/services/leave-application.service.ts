@@ -2,8 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
-import { LeaveApplication } from '../models/leave-application.interface';
-import { LeaveApplicationAdd } from '../models/leave-application-add.interface';
+import {
+  LeaveApplication,
+  LeaveApplicationAddEdit,
+} from '../models/leave-application.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -14,9 +16,12 @@ export class LeaveApplicationService {
   private _httpClient = inject(HttpClient);
 
   addLeaveApplication(
-    addPayload: LeaveApplicationAdd,
-  ): Observable<LeaveApplicationAdd> {
-    return this._httpClient.post<LeaveApplicationAdd>(this.apiUrl, addPayload);
+    addPayload: LeaveApplicationAddEdit,
+  ): Observable<LeaveApplicationAddEdit> {
+    return this._httpClient.post<LeaveApplicationAddEdit>(
+      this.apiUrl,
+      addPayload,
+    );
   }
 
   getAllLeaveApplications(): Observable<LeaveApplication[]> {

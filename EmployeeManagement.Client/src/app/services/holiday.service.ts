@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
-import { Holiday } from '../models/holiday.interface';
+import { Holiday, HolidayAddEdit } from '../models/holiday.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,7 @@ export class HolidayService {
 
   private _httpClient = inject(HttpClient);
 
-  addHoliday(addPayload: Holiday): Observable<Holiday> {
+  addHoliday(addPayload: HolidayAddEdit): Observable<Holiday> {
     return this._httpClient.post<Holiday>(this.apiUrl, addPayload);
   }
 
@@ -20,8 +20,8 @@ export class HolidayService {
     return this._httpClient.get<Holiday[]>(this.apiUrl);
   }
 
-  editHoliday(id: number, editPayload: any) {
-    return this._httpClient.put(this.apiUrl + `${id}`, editPayload);
+  editHoliday(id: number, editPayload: HolidayAddEdit): Observable<Holiday> {
+    return this._httpClient.put<Holiday>(this.apiUrl + `${id}`, editPayload);
   }
 
   deleteHoliday(id: number) {

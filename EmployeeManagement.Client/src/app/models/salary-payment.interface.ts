@@ -4,3 +4,8 @@ export interface SalaryPayment {
   payDate: string;
   paymentMethod: string;
 }
+
+export interface SalaryPaymentAdd {
+  payDate: string;
+  paymentMethod: number;
+}

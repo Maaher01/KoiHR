@@ -66,7 +66,11 @@ export class UserListComponent implements OnInit {
       user: user,
     };
 
-    this.dialog.open(UserEditDialogComponent, dialogConf);
+    const dialogRef = this.dialog.open(UserEditDialogComponent, dialogConf);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) this.getAllUsers();
+    });
   }
 
   deleteUser(id: number) {
@@ -85,8 +89,6 @@ export class UserListComponent implements OnInit {
           },
           error: (err) => {
             if (err) {
-              console.log(err);
-
               this.dialog.open(WarningDialogComponent, {
                 width: '400px',
                 data: {

@@ -1,4 +1,8 @@
 export interface Department {
-  id?: number;
+  id: number;
+  name: string;
+}
+
+export interface DepartmentAddEdit {
   name: string;
 }

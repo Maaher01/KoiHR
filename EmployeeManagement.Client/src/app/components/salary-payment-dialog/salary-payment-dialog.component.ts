@@ -4,7 +4,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MaterialModule } from 'src/app/material.module';
 import { SalaryEntry } from 'src/app/models/salary-entry';
-import { SalaryPaymentAdd } from 'src/app/models/salary-payment-add.interface';
+import { SalaryPaymentAdd } from 'src/app/models/salary-payment.interface';
 import { SalaryPaymentService } from 'src/app/services/salary-payment.service';
 
 @Component({

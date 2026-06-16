@@ -4,7 +4,7 @@
             <div>
                 <mat-card-title class="m-b-0">Holidays</mat-card-title>
             </div>
-            <button mat-flat-button color="primary" class="add-btn" (click)="addHoliday()">
+            <button mat-flat-button color="primary" class="add-btn" (click)="openAddDialog()">
                 <mat-icon>add</mat-icon> Add Holiday
             </button>
         </div>
@@ -68,7 +68,7 @@
                 <ng-container matColumnDef="actions">
                     <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">Actions</th>
                     <td mat-cell *matCellDef="let row">
-                        <button mat-icon-button color="primary" matTooltip="Edit" (click)="editHoliday(row)">
+                        <button mat-icon-button color="primary" matTooltip="Edit" (click)="openEditDialog(row)">
                             <mat-icon>edit</mat-icon>
                         </button>
                         <button mat-icon-button color="warn" matTooltip="Delete" (click)="deleteHoliday(row.id)">

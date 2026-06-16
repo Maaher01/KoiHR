@@ -7,3 +7,13 @@ export interface Attendance {
   note: string;
   status: string;
 }
+
+export interface AttendanceAddEdit {
+  note: string;
+}
+
+export interface AttendanceCount {
+  date: string;
+  present: number;
+  absent: number;
+}

@@ -3,8 +3,10 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MaterialModule } from 'src/app/material.module';
 import { CommonModule } from '@angular/common';
-import { SalaryBenefitAdd } from 'src/app/models/salary-benefit-add.interface';
-import { SalaryBenefit } from 'src/app/models/salary-benefit.interface';
+import {
+  SalaryBenefit,
+  SalaryBenefitAddEdit,
+} from 'src/app/models/salary-benefit.interface';
 import { SalaryBenefitService } from 'src/app/services/salary-benefit.service';
 
 @Component({
@@ -33,7 +35,8 @@ export class SalaryBenefitDialogComponent {
   ) {}
 
   save() {
-    const formValue: SalaryBenefitAdd = this.salaryBenefitForm.getRawValue();
+    const formValue: SalaryBenefitAddEdit =
+      this.salaryBenefitForm.getRawValue();
 
     const request = this.isEditMode
       ? this.salaryBenefitService.editSalaryBenefit(

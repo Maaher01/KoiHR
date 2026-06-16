@@ -23,25 +23,41 @@
           </mat-form-field>
         </div>
 
+        <!-- Email -->
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8 d-block">Email <span class="required">*</span></mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <input matInput formControlName="email" type="email" placeholder="e.g. john.doe@company.com" />
+            @if (employeeAddForm.controls.email.hasError('required')) {
+            <mat-error>Email is required</mat-error>
+            }
+            @if (employeeAddForm.controls.email.hasError('email')) {
+            <mat-error>Enter a valid email address</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
         <!-- Gender -->
         <div class="col-lg-6">
-          <mat-label class="f-w-600 m-b-8 d-block">Gender</mat-label>
+          <mat-label class="f-w-600 m-b-8 d-block">Gender <span class="required">*</span></mat-label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="gender">
               @for (g of genderOptions; track g) {
               <mat-option [value]="g.value">{{ g.label }}</mat-option>
               }
             </mat-select>
+            <mat-error>Gender is required</mat-error>
           </mat-form-field>
         </div>
 
         <!-- DOB -->
         <div class="col-lg-6">
-          <mat-label class="f-w-600 m-b-8 d-block">Date of Birth</mat-label>
+          <mat-label class="f-w-600 m-b-8 d-block">Date of Birth <span class="required">*</span></mat-label>
           <mat-form-field appearance="outline" class="w-100">
             <input matInput formControlName="dob" [matDatepicker]="dobPicker" readonly />
             <mat-datepicker-toggle matIconSuffix [for]="dobPicker" />
             <mat-datepicker #dobPicker />
+            <mat-error>Date of birth is required</mat-error>
           </mat-form-field>
         </div>
 

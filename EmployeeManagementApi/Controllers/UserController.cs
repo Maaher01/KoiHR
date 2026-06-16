@@ -47,6 +47,9 @@ namespace EmployeeManagementApi.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
+            var existingUser = await _userManager.FindByEmailAsync(dto.Email);
+            if (existingUser != null) return Conflict("A user with this email already exists.");
+
             if (dto.EmployeeId.HasValue)
             {
                 var employeeExists = await _context.Employees.AnyAsync(e => e.Id == dto.EmployeeId.Value);
@@ -86,12 +89,23 @@ namespace EmployeeManagementApi.Controllers
             var user = await _userManager.FindByIdAsync(id);
             if (user == null) return NotFound();
 
-            if(!string.IsNullOrEmpty(dto.Email)) user.Email = dto.Email;
+            if (!string.IsNullOrEmpty(dto.Email))
+            {
+                var existingUser = await _userManager.FindByEmailAsync(dto.Email);
+                if (existingUser != null && existingUser.Id != user.Id)
+                {
+                    return Conflict("This email is already in use by another user.");
+                }
+
+                user.Email = dto.Email;
+                user.UserName = dto.Email;
+            }
 
             if(!string.IsNullOrEmpty(dto.NewPassword))
             {
                 var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-                await _userManager.ResetPasswordAsync(user, token, dto.NewPassword);
+                var resetResult = await _userManager.ResetPasswordAsync(user, token, dto.NewPassword);
+                if (!resetResult.Succeeded) return BadRequest(resetResult.Errors.Select(e => e.Description));
             }
 
             if(!string.IsNullOrEmpty(dto.Role))
@@ -101,7 +115,9 @@ namespace EmployeeManagementApi.Controllers
                 await _userManager.AddToRoleAsync(user, dto.Role);
             }
 
-            await _userManager.UpdateAsync(user);
+            var updateResult = await _userManager.UpdateAsync(user);
+            if (!updateResult.Succeeded) return BadRequest(updateResult.Errors.Select(e => e.Description));
+
             return Ok();
         }
 

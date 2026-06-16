@@ -27,7 +27,8 @@ namespace EmployeeManagementApi.Controllers
                 .Select(e => new EmployeeGetDto
                 {
                     Id = e.Id,
-                    Name = e.Name!,
+                    Name = e.Name,
+                    Email = e.Email,
                     DepartmentId = e.DepartmentId,
                     DepartmentName = e.Department!.Name,
                     DateOfJoining = e.DateOfJoining,
@@ -55,7 +56,8 @@ namespace EmployeeManagementApi.Controllers
             var result = new EmployeeGetDto
             {
                 Id = employee.Id,
-                Name = employee.Name!,
+                Name = employee.Name,
+                Email = employee.Email,
                 DepartmentId = employee.DepartmentId,
                 DepartmentName = employee.Department?.Name,
                 DateOfJoining = employee.DateOfJoining,
@@ -83,6 +85,7 @@ namespace EmployeeManagementApi.Controllers
             var employee = new Employee
             {
                 Name = dto.Name,
+                Email = dto.Email,
                 DepartmentId = dto.DepartmentId,
                 DateOfJoining = dto.DateOfJoining,
                 Image = dto.Image,
@@ -101,6 +104,7 @@ namespace EmployeeManagementApi.Controllers
             {
                 Id = employee.Id,
                 Name = employee.Name,
+                Email = employee.Email,
                 DepartmentId = employee.DepartmentId,
                 DepartmentName = (await _context.Departments.FindAsync(employee.DepartmentId))?.Name,
                 DateOfJoining = employee.DateOfJoining,
@@ -126,6 +130,7 @@ namespace EmployeeManagementApi.Controllers
             if (existingEmployee == null) return NotFound();
 
             existingEmployee.Name = dto.Name;
+            existingEmployee.Email = dto.Email;
             existingEmployee.DepartmentId = dto.DepartmentId;
             existingEmployee.DateOfJoining = dto.DateOfJoining;
             existingEmployee.Image = dto.Image;
@@ -142,6 +147,7 @@ namespace EmployeeManagementApi.Controllers
             {
                 Id = existingEmployee.Id,
                 Name = existingEmployee.Name,
+                Email = existingEmployee.Email,
                 DepartmentId = existingEmployee.DepartmentId,
                 DepartmentName = (await _context.Departments.FindAsync(existingEmployee.DepartmentId))?.Name,
                 DateOfJoining = existingEmployee.DateOfJoining,
