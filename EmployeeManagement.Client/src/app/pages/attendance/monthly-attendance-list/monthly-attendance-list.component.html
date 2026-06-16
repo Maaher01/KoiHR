@@ -24,13 +24,13 @@
 
                 <div class="export-group">
                     <button mat-stroked-button class="export-btn export-excel" (click)="exportExcel()"
-                        matTooltip="Export as Excel" [disabled]="isLoading || !monthlyAttendance?.length">
+                        matTooltip="Export as Excel" [disabled]="isLoading || !monthlyAttendance.length">
                         <mat-icon>table_chart</mat-icon>
                         <span>Excel</span>
                     </button>
 
                     <button mat-stroked-button class="export-btn export-pdf" (click)="exportPDF()"
-                        matTooltip="Export as PDF" [disabled]="isLoading || !monthlyAttendance?.length">
+                        matTooltip="Export as PDF" [disabled]="isLoading || !monthlyAttendance.length">
                         <mat-icon>picture_as_pdf</mat-icon>
                         <span>PDF</span>
                     </button>

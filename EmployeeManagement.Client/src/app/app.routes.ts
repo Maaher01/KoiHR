@@ -57,6 +57,12 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'salary',
+        loadChildren: () =>
+          import('./pages/salary/salary.routes').then((m) => m.SalaryRoutes),
+        canActivate: [roleGuard(['Admin', 'HR'])],
+      },
+      {
         path: 'weekend',
         loadChildren: () =>
           import('./pages/weekend/weekend.routes').then((m) => m.WeekendRoutes),

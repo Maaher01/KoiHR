@@ -78,8 +78,7 @@ namespace EmployeeManagementApi.Controllers
                     };
                 }
 
-                var isLeave = approvedLeaves.Any(al => al.EmployeeId == e.Id 
-                                                   && dateOnly >= al.StartDate && dateOnly <= al.EndDate);
+                var isLeave = approvedLeaves.Any(al => al.EmployeeId == e.Id && dateOnly >= al.StartDate && dateOnly <= al.EndDate);
                 if (isLeave)
                 {
                     return new AttendanceGetDto

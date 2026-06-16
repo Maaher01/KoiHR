@@ -77,8 +77,7 @@ export class AttendanceSettingsAddComponent implements OnInit {
       error: (err) => {
         if (err.status === 0) {
           // Network error (no connection, server down, CORS, etc.)
-          this.errorMessage =
-            'Error creating department. Please try again later.';
+          this.errorMessage = 'Error creating setting. Please try again later.';
         } else if (err.status === 400) {
           // Bad request / model validation
           this.errorMessage = err.error;

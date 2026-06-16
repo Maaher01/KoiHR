@@ -6,12 +6,13 @@ import {
   Validators,
 } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { CommonModule } from '@angular/common';
 import { MaterialModule } from 'src/app/material.module';
 import { LeaveTypeService } from 'src/app/services/leave-type.service';
 
 @Component({
   selector: 'app-leave-type-edit-dialog',
-  imports: [FormsModule, ReactiveFormsModule, MaterialModule],
+  imports: [FormsModule, ReactiveFormsModule, MaterialModule, CommonModule],
   templateUrl: './leave-type-edit-dialog.component.html',
   styleUrl: './leave-type-edit-dialog.component.scss',
 })

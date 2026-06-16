@@ -106,7 +106,7 @@ export class LeaveTypeListComponent implements OnInit {
             this.dialog.open(WarningDialogComponent, {
               width: '400px',
               data: {
-                title: 'Failed to delete department',
+                title: 'Failed to delete leave type',
                 message:
                   'There was an error deleting the leave type. Please try again later',
               },

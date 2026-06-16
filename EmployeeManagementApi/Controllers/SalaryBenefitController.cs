@@ -8,6 +8,7 @@ namespace EmployeeManagementApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "HR,Admin")]
     public class SalaryBenefitController : ControllerBase
     {
         private readonly EmployeeDbContext _context;
@@ -18,7 +19,6 @@ namespace EmployeeManagementApi.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "HR, Admin")]
         public async Task<IActionResult> GetAllSalaryBenefits()
         {
             var salaryBenefits = await _context.SalaryBenefits.ToListAsync();
@@ -27,10 +27,9 @@ namespace EmployeeManagementApi.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "HR,Admin")]
-        public async Task<IActionResult> CreateSalaryBenefit([FromBody] SalaryBenefitCreateUpdateDto dto)
+        public async Task<IActionResult> CreateSalaryBenefit([FromBody] SalaryBenefitDto dto)
         {
-            if(!ModelState.IsValid) return BadRequest(ModelState);
+            if (!ModelState.IsValid) return BadRequest(ModelState);
 
             var salaryBenefit = new SalaryBenefit
             {
@@ -43,6 +42,35 @@ namespace EmployeeManagementApi.Controllers
             await _context.SaveChangesAsync();
 
             return Ok(salaryBenefit);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateSalaryBenefit(int id, [FromBody] SalaryBenefitDto dto)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var benefit = await _context.SalaryBenefits.FindAsync(id);
+            if (benefit == null) return NotFound("Salary benefit not found");
+
+            benefit.Title = dto.Title;
+            benefit.Amount = dto.Amount;
+            benefit.IsAddition = dto.IsAddition;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(benefit);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteSalaryBenefit(int id)
+        {
+            var benefit = await _context.SalaryBenefits.FindAsync(id);
+            if (benefit == null) return NotFound("Salary benefit does not exist");
+
+            _context.SalaryBenefits.Remove(benefit);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
         }
     }
 }

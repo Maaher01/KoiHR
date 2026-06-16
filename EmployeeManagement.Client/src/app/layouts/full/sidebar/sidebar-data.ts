@@ -114,7 +114,13 @@ export const navItems: NavItem[] = [
       {
         displayName: 'Benefits',
         iconName: 'solar:heart-line-duotone',
-        route: '/',
+        route: '/salary/benefit',
+        chip: true,
+      },
+      {
+        displayName: 'Salary Payment',
+        iconName: 'solar:money-bag-line-duotone',
+        route: '/salary/payment',
         chip: true,
       },
     ],

@@ -1,15 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using EmployeeManagementApi.Dtos.Salary.Benefits;
 
-namespace EmployeeManagementApi.Models
+namespace EmployeeManagementApi.Dtos.Salary.Entry
 {
-    public class SalaryEntry
+    public class SalaryEntryGetDto
     {
-        public int Id { get; set; }
+        public int EntryId { get; set; }
         public int EmployeeId { get; set; }
-        public Employee? Employee { get; set; }
+        public string EmployeeName { get; set; } = string.Empty;
         public int Year { get; set; }
         public int Month { get; set; }
-        public DateTime GeneratedAt { get; set; } = DateTime.UtcNow;
         public int WorkingDays { get; set; }
         public int PresentDays { get; set; }
         public int AbsentDays { get; set; }
@@ -22,6 +22,8 @@ namespace EmployeeManagementApi.Models
         [Precision(10, 2)]
         public decimal DeductionBenefits { get; set; }
         [Precision(10, 2)]
+        public List<SalaryBenefitDto> BenefitBreakdown { get; set; } = new();
         public decimal NetSalary { get; set; }
+        public bool IsPaid { get; set; }
     }
 }

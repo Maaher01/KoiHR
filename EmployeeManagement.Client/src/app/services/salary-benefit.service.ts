@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment.development';
 import { SalaryBenefit } from '../models/salary-benefit.interface';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { SalaryBenefitAdd } from '../models/salary-benefit-add.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -14,5 +15,23 @@ export class SalaryBenefitService {
 
   getAllSalaryBenefits(): Observable<SalaryBenefit[]> {
     return this._httpClient.get<SalaryBenefit[]>(this.apiUrl);
+  }
+
+  addSalaryBenefit(addPayload: SalaryBenefitAdd): Observable<SalaryBenefit> {
+    return this._httpClient.post<SalaryBenefit>(this.apiUrl, addPayload);
+  }
+
+  editSalaryBenefit(
+    id: number,
+    editPayload: SalaryBenefitAdd,
+  ): Observable<SalaryBenefit> {
+    return this._httpClient.put<SalaryBenefit>(
+      this.apiUrl + `${id}`,
+      editPayload,
+    );
+  }
+
+  deleteSalaryBenefit(id: number) {
+    return this._httpClient.delete(this.apiUrl + `${id}`);
   }
 }

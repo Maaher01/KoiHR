@@ -11,10 +11,11 @@ import { MaterialModule } from 'src/app/material.module';
 import { HolidayService } from 'src/app/services/holiday.service';
 import { endDateAfterStartDate } from 'src/app/shared/validators/date.validator';
 import { formatDate } from '@angular/common';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-holiday-add-dialog',
-  imports: [FormsModule, ReactiveFormsModule, MaterialModule],
+  imports: [FormsModule, ReactiveFormsModule, MaterialModule, CommonModule],
   templateUrl: './holiday-add-dialog.component.html',
   providers: [provideNativeDateAdapter()],
 })

@@ -1,0 +1,164 @@
+<div class="cardWithShadow theme-card">
+    <div class="card-body">
+
+        <!-- Header: title + month picker -->
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-16 m-b-24">
+            <h5 class="f-w-600 m-0 text-lg">Monthly Salary</h5>
+
+            <mat-form-field appearance="outline" class="month-picker">
+                <mat-label>Select Month</mat-label>
+                <input matInput [matDatepicker]="picker" [formControl]="monthControl" [max]="maxDate" readonly />
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker startView="year"
+                    (monthSelected)="onMonthSelected($event, picker)"></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <!-- Summary stat cards -->
+        @if (!isLoading && salaryEntry.length > 0) {
+        <div class="row m-b-24">
+            <div class="col-md-4 col-12">
+                <div class="summary-card">
+                    <span class="f-w-600 m-b-8 d-block text-muted">Total Employees</span>
+                    <h4 class="m-0">{{ totalEmployees }}</h4>
+                </div>
+            </div>
+            <div class="col-md-4 col-12">
+                <div class="summary-card">
+                    <span class="f-w-600 m-b-8 d-block text-muted">Total Payroll</span>
+                    <h4 class="m-0">{{ totalNetSalary | currency:'Tk. ':'symbol':'1.0-0' }}</h4>
+                </div>
+            </div>
+            <div class="col-md-4 col-12">
+                <div class="summary-card">
+                    <span class="f-w-600 m-b-8 d-block text-muted">Period</span>
+                    <h4 class="m-0">{{ monthControl.value | date:'MMMM yyyy' }}</h4>
+                </div>
+            </div>
+        </div>
+        }
+
+        <!-- Loading state -->
+        @if (isLoading) {
+        <div class="d-flex justify-content-center p-y-32">
+            <mat-spinner diameter="40"></mat-spinner>
+        </div>
+        }
+
+        <!-- Error state -->
+        @if (errorResponse) {
+        <div class="text-error m-b-16">{{ errorResponse }}</div>
+        }
+
+        <!-- Table -->
+        @if (!isLoading && salaryEntry.length > 0) {
+        <div class="table-responsive">
+            <table mat-table [dataSource]="salaryEntry" class="w-100">
+
+                <!-- Employee -->
+                <ng-container matColumnDef="employeeName">
+                    <th mat-header-cell *matHeaderCellDef class="f-w-600">Employee</th>
+                    <td mat-cell *matCellDef="let row" class="f-w-500">{{ row.employeeName }}</td>
+                </ng-container>
+
+                <!-- Working Days -->
+                <ng-container matColumnDef="workingDays">
+                    <th mat-header-cell *matHeaderCellDef class="f-w-600 text-center">Working Days</th>
+                    <td mat-cell *matCellDef="let row" class="text-center f-w-500">{{ row.workingDays }}</td>
+                </ng-container>
+
+                <!-- Present -->
+                <ng-container matColumnDef="presentDays">
+                    <th mat-header-cell *matHeaderCellDef class="f-w-600 text-center">Present</th>
+                    <td mat-cell *matCellDef="let row" class="text-center">
+                        <span class="chip chip-success">{{ row.presentDays }}</span>
+                    </td>
+                </ng-container>
+
+                <!-- Absent -->
+                <ng-container matColumnDef="absentDays">
+                    <th mat-header-cell *matHeaderCellDef class="f-w-600 text-center">Absent</th>
+                    <td mat-cell *matCellDef="let row" class="text-center">
+                        <span class="chip chip-error">{{ row.absentDays }}</span>
+                    </td>
+                </ng-container>
+
+                <!-- Basic Salary -->
+                <ng-container matColumnDef="basicSalary">
+                    <th mat-header-cell *matHeaderCellDef class="f-w-600 text-end">Basic Salary</th>
+                    <td mat-cell *matCellDef="let row" class="text-end f-w-500">
+                        {{ row.basicSalary | currency:'Tk. ':'symbol':'1.0-0' }}
+                    </td>
+                </ng-container>
+
+                <!-- Absent Deduction -->
+                <ng-container matColumnDef="absentDeduction">
+                    <th mat-header-cell *matHeaderCellDef class="f-w-600 text-end">Absent Deduction</th>
+                    <td mat-cell *matCellDef="let row" class="text-end">
+                        @if (row.absentDeduction > 0) {
+                        <span class="text-error">-{{ row.absentDeduction | currency:'Tk. ':'symbol':'1.0-0' }}</span>
+                        } @else {
+                        <span class="text-muted">—</span>
+                        }
+                    </td>
+                </ng-container>
+
+                @for (title of benefitTitles; track title) {
+                <ng-container [matColumnDef]="'benefit_' + title">
+                    <th mat-header-cell *matHeaderCellDef class="f-w-600 text-end">{{ title }}</th>
+                    <td mat-cell *matCellDef="let row" class="text-end">
+                        @let benefit = getBenefitAmount(row, title);
+                        @if (benefit) {
+                        <span [class]="benefit.isAddition ? 'text-success' : 'text-error'">
+                            {{ benefit.isAddition ? '+' : '-' }}{{ benefit.amount | currency:'BDT ':'symbol':'1.0-0' }}
+                        </span>
+                        } @else {
+                        <span class="text-muted">—</span>
+                        }
+                    </td>
+                </ng-container>
+                }
+
+                <!-- Net Salary -->
+                <ng-container matColumnDef="netSalary">
+                    <th mat-header-cell *matHeaderCellDef class="f-w-600 text-end">Net Salary</th>
+                    <td mat-cell *matCellDef="let row" class="text-end f-w-600">
+                        {{ row.netSalary | currency:'Tk. ':'symbol':'1.0-0' }}
+                    </td>
+                </ng-container>
+
+                <!-- Action -->
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef class="f-w-600 text-center">Action</th>
+                    <td mat-cell *matCellDef="let row" class="text-center">
+                        @if (row.isPaid) {
+                        <span class="chip chip-success">Paid</span>
+                        } @else {
+                        <button mat-flat-button color="primary" [disabled]="payingId === row.entryId"
+                            (click)="openPayDialog(row)">
+                            @if (payingId === row.entryId) {
+                            <mat-spinner diameter="18" class="m-r-8"></mat-spinner>
+                            }
+                            Pay Now
+                        </button>
+                        }
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+        }
+
+        @if (!isLoading && salaryEntry.length === 0 && !errorResponse) {
+        <div class="text-center p-y-32">
+            <p class="text-muted m-b-16">No salary entries found for {{ monthControl.value | date:'MMMM yyyy' }}.</p>
+            <button mat-flat-button color="primary" (click)="generateSalaryEntry()">
+                Generate Payroll
+            </button>
+        </div>
+        }
+
+    </div>
+</div>

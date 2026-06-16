@@ -1,0 +1,71 @@
+<div class="cardWithShadow theme-card">
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center m-b-16">
+            <h5 class="f-w-600 m-0 text-lg">Salary Benefits</h5>
+            <button mat-flat-button color="primary" (click)="addSalaryBenefit()">
+                <mat-icon>add</mat-icon>
+                Add Benefit
+            </button>
+        </div>
+
+        @if (errorResponse) {
+        <div class="text-error m-b-16">{{ errorResponse }}</div>
+        }
+
+        @if (benefits.data.length > 0) {
+        <div class="table-responsive">
+            <table mat-table [dataSource]="benefits" class="w-100">
+
+                <!-- Title -->
+                <ng-container matColumnDef="title">
+                    <th mat-header-cell *matHeaderCellDef class="f-w-600">Title</th>
+                    <td mat-cell *matCellDef="let benefit">{{ benefit.title }}</td>
+                </ng-container>
+
+                <!-- Type -->
+                <ng-container matColumnDef="isAddition">
+                    <th mat-header-cell *matHeaderCellDef class="f-w-600">Type</th>
+                    <td mat-cell *matCellDef="let benefit">
+                        <mat-chip-set>
+                            <mat-chip [ngClass]="benefit.isAddition ? 'chip-addition' : 'chip-deduction'">
+                                {{ benefit.isAddition ? 'Addition' : 'Deduction' }}
+                            </mat-chip>
+                        </mat-chip-set>
+                    </td>
+                </ng-container>
+
+                <!-- Amount -->
+                <ng-container matColumnDef="amount">
+                    <th mat-header-cell *matHeaderCellDef class="f-w-600">Amount</th>
+                    <td mat-cell *matCellDef="let benefit">
+                        {{ benefit.isAddition ? '+' : '-' }}{{ benefit.amount | number:'1.2-2' }}%
+                    </td>
+                </ng-container>
+
+                <!-- Actions -->
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef class="f-w-600">Actions</th>
+                    <td mat-cell *matCellDef="let benefit">
+                        <button mat-icon-button color="primary" (click)="editBenefit(benefit)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button color="warn" (click)="deleteSalaryBenefit(benefit.id)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+        } @else {
+        <div class="text-center p-y-32 text-muted">
+            No salary benefits configured yet.
+        </div>
+        }
+
+        <mat-paginator [pageSize]="10" showFirstLastButtons>
+        </mat-paginator>
+    </div>
+</div>
