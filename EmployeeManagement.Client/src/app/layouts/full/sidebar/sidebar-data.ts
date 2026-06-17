@@ -77,6 +77,11 @@ export const navItems: NavItem[] = [
     ],
   },
   {
+    displayName: 'Notice',
+    iconName: 'solar:notes-line-duotone',
+    route: '/notice',
+  },
+  {
     navCap: 'HR',
     divider: true,
     roles: ['Admin', 'HR'],

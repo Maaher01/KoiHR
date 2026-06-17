@@ -1,0 +1,36 @@
+<div class="cardWithShadow theme-card">
+    <div class="card-body">
+
+        @if (isLoading) {
+        <div class="d-flex justify-content-center p-y-32">
+            <mat-spinner diameter="40"></mat-spinner>
+        </div>
+        }
+
+        @if (errorMessage) {
+        <div class="text-error m-b-16">{{ errorMessage }}</div>
+        <button mat-stroked-button (click)="goBack()">
+            <mat-icon>arrow_back</mat-icon>
+            Back to Notices
+        </button>
+        }
+
+        @if (!isLoading && notice) {
+        <button mat-stroked-button (click)="goBack()" class="m-b-24">
+            <mat-icon>arrow_back</mat-icon>
+            Back to Notices
+        </button>
+
+        <div class="notice-detail">
+            <span class="text-muted small">
+                Published {{ notice.publishedAt | date:'fullDate' }}
+            </span>
+
+            <h4 class="f-w-600 m-t-8 m-b-16">{{ notice.title }}</h4>
+
+            <p class="notice-detail-content">{{ notice.content }}</p>
+        </div>
+        }
+
+    </div>
+</div>

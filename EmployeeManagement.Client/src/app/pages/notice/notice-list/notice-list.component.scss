@@ -1,0 +1,35 @@
+.notice-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.notice-card {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-left: 4px solid var(--mat-sys-primary, #5d87ff);
+  border-radius: 8px;
+  padding: 12px 20px;
+  background-color: #fafafa;
+}
+
+.notice-date {
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-left: 16px;
+}
+
+.notice-content {
+  white-space: pre-wrap;
+  color: rgba(0, 0, 0, 0.75);
+  line-height: 1.5;
+}
+
+.read-more-btn {
+  padding: 0;
+  min-width: 0;
+  font-size: 0.85rem;
+}
+
+.small {
+  font-size: 0.8rem;
+}

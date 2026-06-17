@@ -59,7 +59,6 @@ namespace EmployeeManagementApi.Controllers
             return Ok(existingLeaveType);
         }
 
-
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteLeaveType(int id)
         {

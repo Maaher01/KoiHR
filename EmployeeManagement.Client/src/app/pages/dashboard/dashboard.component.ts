@@ -6,6 +6,7 @@ import { DecodedToken } from 'src/app/models/decoded-token.interface';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MonthlyAttendanceChartComponent } from 'src/app/components/monthly-attendance-chart/monthly-attendance-chart.component';
+import { LatestNoticesWidgetComponent } from 'src/app/components/latest-notices-widget/latest-notices-widget.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,6 +16,7 @@ import { MonthlyAttendanceChartComponent } from 'src/app/components/monthly-atte
     AttendanceMarkCardComponent,
     MonthlyAttendanceChartComponent,
     ReactiveFormsModule,
+    LatestNoticesWidgetComponent,
   ],
   templateUrl: './dashboard.component.html',
   encapsulation: ViewEncapsulation.None,

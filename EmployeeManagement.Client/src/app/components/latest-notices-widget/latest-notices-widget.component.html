@@ -1,0 +1,36 @@
+<div class="cardWithShadow theme-card">
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center m-b-16">
+            <h6 class="f-w-600 m-0">Latest Notices</h6>
+            <a routerLink="/notice" class="view-all-link cursor-pointer">View all</a>
+        </div>
+
+        @if (isLoadingNotices) {
+        <div class="d-flex justify-content-center p-y-16">
+            <mat-spinner diameter="32"></mat-spinner>
+        </div>
+        }
+
+        @if (!isLoadingNotices && latestNotices.length > 0) {
+        <div class="notice-mini-feed">
+            @for (notice of latestNotices; track notice.id) {
+            <div class="notice-mini-card" [routerLink]="['/notice', notice.id]">
+                <div class="d-flex justify-content-between align-items-start">
+                    <span class="f-w-600 notice-mini-title">{{ notice.title }}</span>
+                    <span class="text-muted small notice-mini-date">
+                        {{ notice.publishedAt | date:'MMM d' }}
+                    </span>
+                </div>
+
+            </div>
+            }
+        </div>
+        }
+
+        @if (!isLoadingNotices && latestNotices.length === 0) {
+        <div class="text-center p-y-16 text-muted">
+            No notices yet.
+        </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,48 @@
+.card-body {
+  background-color: white;
+  padding: 16px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.notice-mini-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.notice-mini-card {
+  border-left: 3px solid var(--mat-sys-primary, #5d87ff);
+  padding: 8px 12px;
+  background-color: #fafafa;
+  border-radius: 6px;
+}
+
+.notice-mini-title {
+  font-size: 0.9rem;
+}
+
+.notice-mini-date {
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-left: 12px;
+  font-size: 0.75rem;
+}
+
+.notice-mini-content {
+  font-size: 0.85rem;
+  color: rgba(0, 0, 0, 0.65);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+.view-all-link {
+  font-size: 0.85rem;
+  color: var(--mat-sys-primary, #5d87ff);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.view-all-link:hover {
+  text-decoration: underline;
+}

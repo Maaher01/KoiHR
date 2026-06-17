@@ -46,8 +46,10 @@ export const routes: Routes = [
       },
       {
         path: 'profile',
-        loadChildren: () =>
-          import('./pages/profile/profile.routes').then((m) => m.ProfileRoutes),
+        loadComponent: () =>
+          import('./pages/profile/profile-details/profile-details.component').then(
+            (m) => m.ProfileDetailsComponent,
+          ),
       },
       {
         path: 'attendance',
@@ -64,15 +66,24 @@ export const routes: Routes = [
       },
       {
         path: 'weekend',
-        loadChildren: () =>
-          import('./pages/weekend/weekend.routes').then((m) => m.WeekendRoutes),
+        loadComponent: () =>
+          import('./pages/weekend/weekend-list/weekend-list.component').then(
+            (m) => m.WeekendListComponent,
+          ),
         canActivate: [roleGuard(['Admin', 'HR'])],
       },
       {
         path: 'holiday',
-        loadChildren: () =>
-          import('./pages/holiday/holiday.routes').then((m) => m.HolidayRoutes),
+        loadComponent: () =>
+          import('./pages/holiday/holiday-list/holiday-list.component').then(
+            (m) => m.HolidayListComponent,
+          ),
         canActivate: [roleGuard(['Admin', 'HR'])],
+      },
+      {
+        path: 'notice',
+        loadChildren: () =>
+          import('./pages/notice/notice.routes').then((m) => m.NoticeRoutes),
       },
       {
         path: 'leave',

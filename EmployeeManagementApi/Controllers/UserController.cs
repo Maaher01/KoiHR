@@ -47,7 +47,7 @@ namespace EmployeeManagementApi.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var existingUser = await _userManager.FindByEmailAsync(dto.Email);
+            var existingUser = await _userManager.FindByEmailAsync(dto.Email!);
             if (existingUser != null) return Conflict("A user with this email already exists.");
 
             if (dto.EmployeeId.HasValue)
