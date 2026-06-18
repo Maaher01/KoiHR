@@ -1,4 +1,4 @@
-﻿using EmployeeManagementApi.Dtos.Leave;
+﻿using EmployeeManagementApi.Dtos.Leave.Balance;
 using EmployeeManagementApi.Enums;
 using EmployeeManagementApi.Models;
 using Microsoft.AspNetCore.Authorization;

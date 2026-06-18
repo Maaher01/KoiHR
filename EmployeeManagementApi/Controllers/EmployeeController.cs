@@ -1,4 +1,6 @@
-﻿using EmployeeManagementApi.Dtos.Employee;
+﻿using EmployeeManagementApi.Dtos.Employee.Qualification;
+using EmployeeManagementApi.Dtos.Employee.Experience;
+using EmployeeManagementApi.Dtos.Employee.Records;
 using EmployeeManagementApi.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -50,6 +52,8 @@ namespace EmployeeManagementApi.Controllers
         {
             var employee = await _context.Employees
                 .Include(e => e.Department)
+                .Include(e => e.Experiences)
+                .Include(e => e.Qualifications)
                 .FirstOrDefaultAsync(e =>  e.Id == id);
             if (employee == null) return NotFound();
 
@@ -60,6 +64,22 @@ namespace EmployeeManagementApi.Controllers
                 Email = employee.Email,
                 DepartmentId = employee.DepartmentId,
                 DepartmentName = employee.Department?.Name,
+                Experiences = employee.Experiences.Select(ex => new EmployeeExperienceGetDto
+                {
+                    Id = ex.Id,
+                    CompanyName = ex.CompanyName,
+                    Designation = ex.Designation,
+                    StartDate = ex.StartDate,
+                    EndDate = ex.EndDate
+                }).ToList(),
+                Qualifications = employee.Qualifications.Select(q => new EmployeeQualificationGetDto
+                {
+                    Id = q.Id,
+                    Title = q.Title,
+                    Institution = q.Institution,
+                    PassingYear = q.PassingYear,
+                    Result = q.Result
+                }).ToList(),
                 DateOfJoining = employee.DateOfJoining,
                 Image = employee.Image,
                 Phone = employee.Phone,

@@ -1,7 +1,7 @@
 ﻿using EmployeeManagementApi.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace EmployeeManagementApi.Dtos.Employee
+namespace EmployeeManagementApi.Dtos.Employee.Records
 {
     public class EmployeeCreateUpdateDto
     {

@@ -24,5 +24,7 @@ namespace EmployeeManagementApi.Models
         public string? Designation { get; set; }
         [Precision(10, 2)]
         public decimal BasicSalary { get; set; }
+        public ICollection<EmployeeQualification> Qualifications { get; set; } = new List<EmployeeQualification>();
+        public ICollection<EmployeeExperience> Experiences { get; set; } = new List<EmployeeExperience>();
     }
 }

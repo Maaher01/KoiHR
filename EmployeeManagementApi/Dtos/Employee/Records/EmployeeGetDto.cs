@@ -1,6 +1,8 @@
-﻿using EmployeeManagementApi.Enums;
+﻿using EmployeeManagementApi.Dtos.Employee.Experience;
+using EmployeeManagementApi.Dtos.Employee.Qualification;
+using EmployeeManagementApi.Enums;
 
-namespace EmployeeManagementApi.Dtos.Employee
+namespace EmployeeManagementApi.Dtos.Employee.Records
 {
     public class EmployeeGetDto
     {
@@ -10,6 +12,8 @@ namespace EmployeeManagementApi.Dtos.Employee
         public int DepartmentId { get; set; }
         public string? DepartmentName { get; set; }
         public DateTime DateOfJoining { get; set; }
+        public List<EmployeeQualificationGetDto> Qualifications { get; set; } = new();
+        public List<EmployeeExperienceGetDto> Experiences { get; set; } = new();
         public string? Image { get; set; }
         public string? Phone { get; set; }
         public string? Address { get; set; }

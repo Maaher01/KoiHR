@@ -1,4 +1,4 @@
-﻿namespace EmployeeManagementApi.Dtos.Leave
+﻿namespace EmployeeManagementApi.Dtos.Leave.Balance
 {
     public class LeaveBalanceDto
     {

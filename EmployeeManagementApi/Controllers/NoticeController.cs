@@ -1,5 +1,4 @@
-﻿using EmployeeManagementApi.Dtos.Employee;
-using EmployeeManagementApi.Dtos.Notice;
+﻿using EmployeeManagementApi.Dtos.Notice;
 using EmployeeManagementApi.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

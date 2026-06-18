@@ -1,4 +1,4 @@
-﻿namespace EmployeeManagementApi.Dtos.Employee
+﻿namespace EmployeeManagementApi.Dtos.Employee.Records
 {
     public class EmployeeImageUpdateDto
     {

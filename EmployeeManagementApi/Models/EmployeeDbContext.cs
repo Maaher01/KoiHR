@@ -9,6 +9,8 @@ namespace EmployeeManagementApi.Models
         public EmployeeDbContext(DbContextOptions<EmployeeDbContext> options) : base(options) {}
         public DbSet<AppUser> Users { get; set; }
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<EmployeeQualification> EmployeeQualifications { get; set; }
+        public DbSet<EmployeeExperience> EmployeeExperience { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Attendance> Attendances { get; set; }
         public DbSet<AttendanceSetting> AttendanceSettings { get; set; }
