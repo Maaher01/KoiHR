@@ -2,17 +2,17 @@ name: CI
 on: [push, pull_request]
 jobs:
   backend:
-    runs_on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
         with: { dotnet-version: "8.0.x" }
-      - run: dotnet-restore
-      - run: dotnet-build --no-restore
-      - run: dotnet-test --no-build
+      - run: dotnet restore
+      - run: dotnet build --no-restore
+      - run: dotnet test --no-build
 
   frontend:
-    runs_on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
