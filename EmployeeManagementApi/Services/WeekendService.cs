@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagementApi.Services
 {
-    public class WeekendService
+    public class WeekendService : IWeekendService
     {
         private readonly EmployeeDbContext _context;
 

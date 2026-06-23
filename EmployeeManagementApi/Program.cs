@@ -18,6 +18,7 @@ builder.Services.AddScoped<IAttendanceService, AttendanceService>();
 builder.Services.AddScoped<ILeaveApplicationService, LeaveApplicationService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IWeekendService, WeekendService>();
 
 var app = builder.Build();
 

@@ -1,5 +1,4 @@
 ﻿using EmployeeManagementApi.Dtos.Weekend;
-using EmployeeManagementApi.Models;
 
 namespace EmployeeManagementApi.Services
 {
