@@ -1,8 +1,7 @@
 ﻿using EmployeeManagementApi.Dtos.Weekend;
-using EmployeeManagementApi.Models;
+using EmployeeManagementApi.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagementApi.Controllers
 {
@@ -11,23 +10,17 @@ namespace EmployeeManagementApi.Controllers
     [Authorize(Roles = "Admin,HR")]
     public class WeekendController : ControllerBase
     {
-        private readonly EmployeeDbContext _context;
+        private readonly IWeekendService _weekendService;
 
-        public WeekendController(EmployeeDbContext context)
+        public WeekendController(IWeekendService weekendService)
         {
-            _context = context;
+            _weekendService = weekendService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllDepartmentWeekends()
         {
-            var result = await _context.Departments
-                .Select(d => new
-                {
-                    DepartmentId = d.Id,
-                    DepartmentName = d.Name,
-                    WeekendDays = d.Weekends.Select(w => w.Day).ToList()
-                }).ToListAsync();
+            var result = await _weekendService.GetAllDepartmentWeekendsAsync();
 
             return Ok(result);
         }
@@ -35,25 +28,7 @@ namespace EmployeeManagementApi.Controllers
         [HttpPost]
         public async Task<IActionResult> SetWeekend([FromBody] WeekendAddDto dto)
         {
-            if (dto.Days == null) dto.Days = new List<DayOfWeek>();
-
-            var existing = await _context.Weekends
-                .Where(w => w.DepartmentId == dto.DepartmentId)
-                .ToListAsync();
-            _context.Weekends.RemoveRange(existing);
-
-            if(dto.Days.Any())
-            {
-                var weekends = dto.Days.Select(day => new Weekend
-                {
-                    DepartmentId = dto.DepartmentId,
-                    Day = day
-                });
-
-                await _context.Weekends.AddRangeAsync(weekends);
-            }
-           
-            await _context.SaveChangesAsync();
+            await _weekendService.SetWeekendAsync(dto);
 
             return Ok();
         }

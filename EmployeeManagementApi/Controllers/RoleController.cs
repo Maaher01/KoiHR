@@ -1,6 +1,5 @@
-﻿using EmployeeManagementApi.Dtos.Role;
+﻿using EmployeeManagementApi.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -11,32 +10,19 @@ namespace EmployeeManagementApi.Controllers
     [Authorize(Roles = "Admin,HR")]
     public class RoleController : ControllerBase
     {
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IRoleService _roleService;
 
-        public RoleController(RoleManager<IdentityRole> roleManager)
+        public RoleController(IRoleService roleService)
         {
-            _roleManager = roleManager;
+            _roleService = roleService;
         }
 
         [HttpGet]
-        public IActionResult GetRoles()
+        public async Task<IActionResult> GetRoles()
         {
             var callerRole = User.FindFirstValue(ClaimTypes.Role);
-            var roles = _roleManager.Roles
-                .Select(r => new RoleGetDto
-                {
-                    Name = r.Name
-                }).ToList();
 
-
-            if (callerRole == "Admin")
-            {
-                roles = roles.Where(r => r.Name == "Employee" || r.Name == "HR").ToList();
-            } 
-            else if (callerRole == "HR")
-            {
-                roles = roles.Where(r => r.Name == "Employee").ToList();
-            }
+            var roles = await _roleService.GetRolesAsync(callerRole);
 
             return Ok(roles);
         }

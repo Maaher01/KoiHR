@@ -44,7 +44,7 @@ namespace EmployeeManagementApi.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "HR, Admin")]
+        [Authorize(Roles = "HR,Admin")]
         public async Task<IActionResult> AddNotice([FromBody] NoticeCreateUpdateDto dto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -62,7 +62,7 @@ namespace EmployeeManagementApi.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "HR, Admin")]
+        [Authorize(Roles = "HR,Admin")]
         public async Task<IActionResult> UpdateNotice(int id, [FromBody] NoticeCreateUpdateDto dto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -79,7 +79,7 @@ namespace EmployeeManagementApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "HR, Admin")]
+        [Authorize(Roles = "HR,Admin")]
         public async Task<IActionResult> DeleteNotice(int id)
         {
             var notice = await _context.Notices.FindAsync(id);

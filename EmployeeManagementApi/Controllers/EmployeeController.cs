@@ -1,10 +1,7 @@
-﻿using EmployeeManagementApi.Dtos.Employee.Qualification;
-using EmployeeManagementApi.Dtos.Employee.Experience;
-using EmployeeManagementApi.Dtos.Employee.Records;
-using EmployeeManagementApi.Models;
+﻿using EmployeeManagementApi.Dtos.Employee.Records;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using EmployeeManagementApi.Services;
 
 namespace EmployeeManagementApi.Controllers
 {
@@ -12,36 +9,18 @@ namespace EmployeeManagementApi.Controllers
     [ApiController]
     public class EmployeeController : ControllerBase
     {
-        private readonly EmployeeDbContext _context;
-        private readonly IWebHostEnvironment _env;
+        private readonly IEmployeeService _employeeService;
 
-        public EmployeeController(EmployeeDbContext context, IWebHostEnvironment env)
+        public EmployeeController(IEmployeeService employeeService)
         {
-            _context = context;
-            _env = env;
+           _employeeService = employeeService;
         }
 
         [HttpGet]
         [Authorize(Roles = "Admin,HR")]
         public async Task<IActionResult> GetEmployees() 
         { 
-            var employees = await _context.Employees.OrderBy(e => e.DateOfJoining)
-                .Select(e => new EmployeeGetDto
-                {
-                    Id = e.Id,
-                    Name = e.Name,
-                    Email = e.Email,
-                    DepartmentId = e.DepartmentId,
-                    DepartmentName = e.Department!.Name,
-                    DateOfJoining = e.DateOfJoining,
-                    Image = e.Image,
-                    Phone = e.Phone,
-                    Address = e.Address,
-                    DOB = e.DOB,
-                    Gender = e.Gender,
-                    Designation = e.Designation,
-                    BasicSalary = e.BasicSalary
-                }).ToListAsync();
+            var employees = await _employeeService.GetEmployeesAsync();
 
             return Ok(employees);
         }
@@ -50,47 +29,10 @@ namespace EmployeeManagementApi.Controllers
         [Authorize(Roles = "Admin,HR")]
         public async Task<IActionResult> GetEmployeeById(int id)
         {
-            var employee = await _context.Employees
-                .Include(e => e.Department)
-                .Include(e => e.Experiences)
-                .Include(e => e.Qualifications)
-                .FirstOrDefaultAsync(e =>  e.Id == id);
+            var employee = await _employeeService.GetEmployeeByIdAsync(id);
             if (employee == null) return NotFound();
 
-            var result = new EmployeeGetDto
-            {
-                Id = employee.Id,
-                Name = employee.Name,
-                Email = employee.Email,
-                DepartmentId = employee.DepartmentId,
-                DepartmentName = employee.Department?.Name,
-                Experiences = employee.Experiences.Select(ex => new EmployeeExperienceGetDto
-                {
-                    Id = ex.Id,
-                    CompanyName = ex.CompanyName,
-                    Designation = ex.Designation,
-                    StartDate = ex.StartDate,
-                    EndDate = ex.EndDate
-                }).ToList(),
-                Qualifications = employee.Qualifications.Select(q => new EmployeeQualificationGetDto
-                {
-                    Id = q.Id,
-                    Title = q.Title,
-                    Institution = q.Institution,
-                    PassingYear = q.PassingYear,
-                    Result = q.Result
-                }).ToList(),
-                DateOfJoining = employee.DateOfJoining,
-                Image = employee.Image,
-                Phone = employee.Phone,
-                Address = employee.Address,
-                DOB = employee.DOB,
-                Gender = employee.Gender,
-                Designation = employee.Designation,
-                BasicSalary = employee.BasicSalary
-            };
-
-            return Ok(result);
+            return Ok(employee);
         }
 
         [HttpPost]
@@ -99,43 +41,8 @@ namespace EmployeeManagementApi.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var departmentExists = await _context.Departments.AnyAsync(d => d.Id == dto.DepartmentId);
-            if (!departmentExists) return BadRequest("Department does not exist");
-
-            var employee = new Employee
-            {
-                Name = dto.Name,
-                Email = dto.Email,
-                DepartmentId = dto.DepartmentId,
-                DateOfJoining = dto.DateOfJoining,
-                Image = dto.Image,
-                Phone = dto.Phone,
-                Address = dto.Address,
-                DOB = dto.DOB,
-                Gender = dto.Gender,
-                Designation = dto.Designation,
-                BasicSalary = dto.BasicSalary
-            };
-
-            _context.Employees.Add(employee);
-            await _context.SaveChangesAsync();
-
-            var result = new EmployeeGetDto
-            {
-                Id = employee.Id,
-                Name = employee.Name,
-                Email = employee.Email,
-                DepartmentId = employee.DepartmentId,
-                DepartmentName = (await _context.Departments.FindAsync(employee.DepartmentId))?.Name,
-                DateOfJoining = employee.DateOfJoining,
-                Image = employee.Image,
-                Phone = employee.Phone,
-                Address = employee.Address,
-                DOB = employee.DOB,
-                Gender = employee.Gender,
-                Designation = employee.Designation,
-                BasicSalary = employee.BasicSalary
-            };
+            var (success, error, result) = await _employeeService.AddEmployeeAsync(dto);
+            if(!success) return BadRequest(error);
 
             return Ok(result);
         }
@@ -146,39 +53,11 @@ namespace EmployeeManagementApi.Controllers
         {
             if(!ModelState.IsValid) return BadRequest(ModelState);
 
-            var existingEmployee = await _context.Employees.FindAsync(id);
-            if (existingEmployee == null) return NotFound();
-
-            existingEmployee.Name = dto.Name;
-            existingEmployee.Email = dto.Email;
-            existingEmployee.DepartmentId = dto.DepartmentId;
-            existingEmployee.DateOfJoining = dto.DateOfJoining;
-            existingEmployee.Image = dto.Image;
-            existingEmployee.Phone = dto.Phone;
-            existingEmployee.Address = dto.Address;
-            existingEmployee.DOB = dto.DOB;
-            existingEmployee.Gender = dto.Gender;
-            existingEmployee.Designation = dto.Designation;
-            existingEmployee.BasicSalary = dto.BasicSalary;
-
-            await _context.SaveChangesAsync();
-
-            var result = new EmployeeGetDto
+            var (success, error, result) = await _employeeService.UpdateEmployeeAsync(id, dto);
+            if(!success)
             {
-                Id = existingEmployee.Id,
-                Name = existingEmployee.Name,
-                Email = existingEmployee.Email,
-                DepartmentId = existingEmployee.DepartmentId,
-                DepartmentName = (await _context.Departments.FindAsync(existingEmployee.DepartmentId))?.Name,
-                DateOfJoining = existingEmployee.DateOfJoining,
-                Image = existingEmployee.Image,
-                Phone = existingEmployee.Phone,
-                Address = existingEmployee.Address,
-                DOB = existingEmployee.DOB,
-                Gender = existingEmployee.Gender,
-                Designation = existingEmployee.Designation,
-                BasicSalary = existingEmployee.BasicSalary
-            };
+                return error == "Employee not found" ? NotFound() : BadRequest(error);
+            }
 
             return Ok(result);
         }
@@ -187,15 +66,8 @@ namespace EmployeeManagementApi.Controllers
         [Authorize(Roles = "Admin,HR")]
         public async Task<IActionResult> DeleteEmployee(int id)
         {
-            var employee = await _context.Employees.FindAsync(id);
-
-            if(employee == null)
-            {
-                return NotFound();
-            }
-
-            _context.Employees.Remove(employee);
-            await _context.SaveChangesAsync();
+            var deleted = await _employeeService.DeleteEmployeeByid(id);
+            if(!deleted) return NotFound();
 
             return NoContent();
         }
@@ -208,31 +80,13 @@ namespace EmployeeManagementApi.Controllers
             try
             {
                 var file = Request.Form.Files.FirstOrDefault();
-
                 if (file == null || file.Length == 0)
                 {
                     return BadRequest("No file uploaded");
                 }
 
-                // Generate unique filename
-                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-
-                var folderPath = Path.Combine(_env.ContentRootPath, "Photos");
-
-                // Ensure folder exists
-                if (!Directory.Exists(folderPath))
-                {
-                    Directory.CreateDirectory(folderPath);
-                }
-
-                var filePath = Path.Combine(folderPath, fileName);
-
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await file.CopyToAsync(stream);
-                }
-
-                return Ok(fileName);
+                var fileName = await _employeeService.SaveEmployeeImageAsync(file);
+                 return Ok(fileName);
             }
             catch (Exception ex)
             {
@@ -244,11 +98,9 @@ namespace EmployeeManagementApi.Controllers
         [Authorize]
         public async Task<IActionResult> UpdateImage(int id, [FromBody] EmployeeImageUpdateDto dto)
         {
-            var employee = await _context.Employees.FindAsync(id);
-            if(employee == null) return NotFound();
+            var updated = await _employeeService.UpdateEmployeeImageAsync(id, dto.Image);
+            if(!updated) return NotFound();
 
-            employee.Image = dto.Image;
-            await _context.SaveChangesAsync();
             return Ok();
         }
     }
