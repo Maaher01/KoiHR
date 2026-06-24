@@ -363,5 +363,5 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # Web API uploads
-EmployeeManagementApi/Photos/*
-!EmployeeManagementApi/Photos/.gitkeep
+KoiHR.Api/Photos/*
+!KoiHR.Api/Photos/.gitkeep
