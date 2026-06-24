@@ -25,6 +25,7 @@ var app = builder.Build();
 app.ConfigureSwaggerExplorer();
 app.UseCORSConfiguration();
 app.UseStaticFilesConfiguration();
+app.UseDefaultFiles();
 app.UseHttpsRedirection();
 app.AddIdentityAuthMiddlewares();
 

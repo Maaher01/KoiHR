@@ -31,11 +31,13 @@ namespace EmployeeManagementApi.Extensions
 
         public static IApplicationBuilder UseStaticFilesConfiguration(this IApplicationBuilder app)
         {
+            var photosPath = Path.Combine(Directory.GetCurrentDirectory(), "Photos");
+
+            if (!Directory.Exists(photosPath)) Directory.CreateDirectory(photosPath);
+
             app.UseStaticFiles(new StaticFileOptions
             {
-                FileProvider = new PhysicalFileProvider(
-                    Path.Combine(Directory.GetCurrentDirectory(), "Photos")
-                ),
+                FileProvider = new PhysicalFileProvider(photosPath),
                 RequestPath = "/Photos"
             });
 
