@@ -16,10 +16,10 @@ namespace KoiHR.Api.Controllers
     public class AuthController : ControllerBase
     {
         private readonly UserManager<AppUser> _user;
-        private readonly EmployeeDbContext _context;
+        private readonly KoiHRDbContext _context;
         private readonly IConfiguration _config;
 
-        public AuthController(UserManager<AppUser> user, EmployeeDbContext context, IConfiguration config, RoleManager<IdentityRole> roleManager)
+        public AuthController(UserManager<AppUser> user, KoiHRDbContext context, IConfiguration config, RoleManager<IdentityRole> roleManager)
         {
             _user = user;
             _context = context;

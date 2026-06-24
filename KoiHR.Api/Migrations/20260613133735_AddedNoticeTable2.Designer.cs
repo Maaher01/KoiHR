@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace KoiHR.Api.Migrations
 {
-    [DbContext(typeof(EmployeeDbContext))]
+    [DbContext(typeof(KoiHRDbContext))]
     [Migration("20260613133735_AddedNoticeTable2")]
     partial class AddedNoticeTable2
     {

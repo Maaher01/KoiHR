@@ -13,7 +13,7 @@ namespace KoiHR.Api.Extensions
         {
             services.AddIdentityApiEndpoints<AppUser>()
                     .AddRoles<IdentityRole>()
-                    .AddEntityFrameworkStores<EmployeeDbContext>();
+                    .AddEntityFrameworkStores<KoiHRDbContext>();
 
             return services;
         }

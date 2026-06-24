@@ -11,9 +11,9 @@ namespace KoiHR.Api.Controllers
     [Authorize]
     public class ProfileController : ControllerBase
     {
-        private readonly EmployeeDbContext _context;
+        private readonly KoiHRDbContext _context;
 
-        public ProfileController(EmployeeDbContext context)
+        public ProfileController(KoiHRDbContext context)
         {
             _context = context;
         }

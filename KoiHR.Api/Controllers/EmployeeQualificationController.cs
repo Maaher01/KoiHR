@@ -9,9 +9,9 @@ namespace KoiHR.Api.Controllers
     [ApiController]
     public class EmployeeQualificationController : ControllerBase
     {
-        private readonly EmployeeDbContext _context;
+        private readonly KoiHRDbContext _context;
 
-        public EmployeeQualificationController(EmployeeDbContext context)
+        public EmployeeQualificationController(KoiHRDbContext context)
         {
             _context = context;
         }

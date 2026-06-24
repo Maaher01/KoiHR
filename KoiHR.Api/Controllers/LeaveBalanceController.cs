@@ -12,9 +12,9 @@ namespace KoiHR.Api.Controllers
     [ApiController]
     public class LeaveBalanceController : ControllerBase
     {
-        private readonly EmployeeDbContext _context;
+        private readonly KoiHRDbContext _context;
 
-        public LeaveBalanceController(EmployeeDbContext context)
+        public LeaveBalanceController(KoiHRDbContext context)
         {
             _context = context;
         }

@@ -7,10 +7,10 @@ namespace KoiHR.Api.Extensions
     {
         public static IServiceCollection InjectDbContext(this IServiceCollection services, IConfiguration config)
         {
-            services.AddDbContext<EmployeeDbContext>(options =>
+            services.AddDbContext<KoiHRDbContext>(options =>
                 options.UseSqlServer(config.GetConnectionString("EmployeeAppCon"))
             );
-            //services.AddDbContext<EmployeeDbContext>(options =>
+            //services.AddDbContext<KoiHRDbContext>(options =>
             //    options.UseInMemoryDatabase("TestDb")
             //);
 

@@ -11,9 +11,9 @@ namespace KoiHR.Api.Controllers
     [Authorize(Roles = "Admin,HR")]
     public class DepartmentController : ControllerBase
     {
-        private readonly EmployeeDbContext _context;
+        private readonly KoiHRDbContext _context;
 
-        public DepartmentController(EmployeeDbContext context)
+        public DepartmentController(KoiHRDbContext context)
         {
             _context = context;
         }

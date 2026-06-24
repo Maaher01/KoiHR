@@ -7,10 +7,10 @@ namespace KoiHR.Api.Services
 {
     public class UserService : IUserService
     {
-        private readonly EmployeeDbContext _context;
+        private readonly KoiHRDbContext _context;
         private readonly UserManager<AppUser> _userManager;
 
-        public UserService(EmployeeDbContext context, UserManager<AppUser> userManager)
+        public UserService(KoiHRDbContext context, UserManager<AppUser> userManager)
         {
             _context = context;
             _userManager = userManager;

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace KoiHR.Api.Migrations
 {
-    [DbContext(typeof(EmployeeDbContext))]
+    [DbContext(typeof(KoiHRDbContext))]
     [Migration("20260613072517_AddPhoneAddressDOBGenderDesignationBasicSalaryToEmployeeTable2")]
     partial class AddPhoneAddressDOBGenderDesignationBasicSalaryToEmployeeTable2
     {

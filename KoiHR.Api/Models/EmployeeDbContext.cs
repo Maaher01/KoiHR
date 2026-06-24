@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KoiHR.Api.Models
 {
-    public class EmployeeDbContext : IdentityDbContext<IdentityUser>
+    public class KoiHRDbContext : IdentityDbContext<IdentityUser>
     {
-        public EmployeeDbContext(DbContextOptions<EmployeeDbContext> options) : base(options) {}
+        public KoiHRDbContext(DbContextOptions<KoiHRDbContext> options) : base(options) {}
         public DbSet<AppUser> Users { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<EmployeeQualification> EmployeeQualifications { get; set; }

@@ -6,9 +6,9 @@ namespace KoiHR.Api.Services
 {
     public class WeekendService : IWeekendService
     {
-        private readonly EmployeeDbContext _context;
+        private readonly KoiHRDbContext _context;
 
-        public WeekendService(EmployeeDbContext context)
+        public WeekendService(KoiHRDbContext context)
         {
             _context = context;
         } 

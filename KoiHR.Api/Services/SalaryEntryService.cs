@@ -8,9 +8,9 @@ namespace KoiHR.Api.Services
 {
     public class SalaryEntryService : ISalaryEntryService
     {
-        private readonly EmployeeDbContext _context;
+        private readonly KoiHRDbContext _context;
 
-        public SalaryEntryService(EmployeeDbContext context)
+        public SalaryEntryService(KoiHRDbContext context)
         {
             _context = context;
         }

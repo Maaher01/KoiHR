@@ -12,9 +12,9 @@ namespace KoiHR.Api.Controllers
     [Authorize(Roles = "Admin,HR")]
     public class DashboardController : ControllerBase
     {
-        private readonly EmployeeDbContext _context;
+        private readonly KoiHRDbContext _context;
 
-        public DashboardController(EmployeeDbContext context)
+        public DashboardController(KoiHRDbContext context)
         {
             _context = context;
         }

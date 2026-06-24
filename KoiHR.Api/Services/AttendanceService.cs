@@ -7,9 +7,9 @@ namespace KoiHR.Api.Services
 {
     public class AttendanceService : IAttendanceService
     {
-        private readonly EmployeeDbContext _context;
+        private readonly KoiHRDbContext _context;
 
-        public AttendanceService(EmployeeDbContext context)
+        public AttendanceService(KoiHRDbContext context)
         {
             _context = context;
         }

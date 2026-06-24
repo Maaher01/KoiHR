@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace KoiHR.Api.Migrations
 {
-    [DbContext(typeof(EmployeeDbContext))]
+    [DbContext(typeof(KoiHRDbContext))]
     [Migration("20260517122507_AddedAppliedAtFieldToLeaveApplicationsTable")]
     partial class AddedAppliedAtFieldToLeaveApplicationsTable
     {

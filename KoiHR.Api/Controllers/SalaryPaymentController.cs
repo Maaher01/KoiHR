@@ -9,9 +9,9 @@ namespace KoiHR.Api.Controllers
     [ApiController]
     public class SalaryPaymentController : ControllerBase
     {
-        private readonly EmployeeDbContext _context;
+        private readonly KoiHRDbContext _context;
 
-        public SalaryPaymentController(EmployeeDbContext context)
+        public SalaryPaymentController(KoiHRDbContext context)
         {
             _context = context;
         }

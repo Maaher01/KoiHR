@@ -8,10 +8,10 @@ namespace KoiHR.Api.Services
 {
     public class EmployeeService : IEmployeeService
     {
-        private readonly EmployeeDbContext _context;
+        private readonly KoiHRDbContext _context;
         private readonly IWebHostEnvironment _env;
 
-        public EmployeeService(EmployeeDbContext context, IWebHostEnvironment env)
+        public EmployeeService(KoiHRDbContext context, IWebHostEnvironment env)
         {
             _context = context;
             _env = env;

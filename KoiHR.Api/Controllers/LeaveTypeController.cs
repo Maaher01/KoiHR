@@ -11,9 +11,9 @@ namespace KoiHR.Api.Controllers
     [Authorize(Roles = "HR,Admin")]
     public class LeaveTypeController : ControllerBase
     {
-        private readonly EmployeeDbContext _context;
+        private readonly KoiHRDbContext _context;
 
-        public LeaveTypeController(EmployeeDbContext context)
+        public LeaveTypeController(KoiHRDbContext context)
         {
             _context = context;
         }

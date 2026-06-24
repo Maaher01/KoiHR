@@ -7,9 +7,9 @@ namespace KoiHR.Api.Services
 {
     public class LeaveApplicationService : ILeaveApplicationService
     {
-        private readonly EmployeeDbContext _context;
+        private readonly KoiHRDbContext _context;
 
-        public LeaveApplicationService(EmployeeDbContext context)
+        public LeaveApplicationService(KoiHRDbContext context)
         {
             _context = context;
         }

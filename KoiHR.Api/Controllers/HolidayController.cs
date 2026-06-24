@@ -11,9 +11,9 @@ namespace KoiHR.Api.Controllers
     [Authorize(Roles = "Admin,HR")]
     public class HolidayController : ControllerBase
     {
-        private readonly EmployeeDbContext _context;
+        private readonly KoiHRDbContext _context;
 
-        public HolidayController(EmployeeDbContext context)
+        public HolidayController(KoiHRDbContext context)
         {
             _context = context;
         }

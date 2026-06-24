@@ -11,9 +11,9 @@ namespace KoiHR.Api.Controllers
     [Authorize(Roles = "Admin,HR")]
     public class AttendanceSettingsController : ControllerBase
     {
-        private readonly EmployeeDbContext _context;
+        private readonly KoiHRDbContext _context;
 
-        public AttendanceSettingsController(EmployeeDbContext context)
+        public AttendanceSettingsController(KoiHRDbContext context)
         {
             _context = context;
         }

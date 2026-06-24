@@ -11,9 +11,9 @@ namespace KoiHR.Api.Controllers
     [Authorize(Roles = "HR,Admin")]
     public class SalaryBenefitController : ControllerBase
     {
-        private readonly EmployeeDbContext _context;
+        private readonly KoiHRDbContext _context;
 
-        public SalaryBenefitController(EmployeeDbContext context)
+        public SalaryBenefitController(KoiHRDbContext context)
         {
             _context = context;
         }

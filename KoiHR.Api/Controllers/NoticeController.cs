@@ -10,9 +10,9 @@ namespace KoiHR.Api.Controllers
     [ApiController]
     public class NoticeController : ControllerBase
     {
-        private readonly EmployeeDbContext _context;
+        private readonly KoiHRDbContext _context;
 
-        public NoticeController(EmployeeDbContext context)
+        public NoticeController(KoiHRDbContext context)
         {
             _context = context;
         }
