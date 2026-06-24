@@ -1,8 +1,6 @@
-# KoiHR (ongoing)
+# KoiHR
 
 A full-stack Human Resource Management System built with ASP.NET Core Web API and Angular, featuring JWT authentication, role-based access control, and a clean Material Design UI.
-
-This project is currently under active development. Some features may be incomplete or subject to change.
 
 ---
 
@@ -221,4 +219,4 @@ Attempting to access a restricted route directly will redirect you to the `/unau
 
 ## Contributing
 
-This project is currently in development. Suggestions and feedback are welcome.
+Suggestions and feedback are welcome.
