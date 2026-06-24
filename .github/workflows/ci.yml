@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./EmployeeManagement.Client
+        working-directory: ./KoiHR.Client
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
