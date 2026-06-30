@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\KoiHR.APi\KoiHR.Api.csproj" />
+    <ProjectReference Include="..\KoiHR.Api\KoiHR.Api.csproj" />
   </ItemGroup>
 
 </Project>
