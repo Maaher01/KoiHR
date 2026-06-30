@@ -99,7 +99,6 @@ namespace KoiHR.Api.Services
                     AdditionBenefits = employeeAdditionBenefits,
                     DeductionBenefits = employeeDeductionBenefits,
                     NetSalary = netSalary,
-
                 };
 
                 _context.SalaryEntries.Add(entry);
